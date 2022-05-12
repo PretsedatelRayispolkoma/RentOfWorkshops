@@ -20,5 +20,7 @@ namespace RentOfWorkshopsCore.DBConnection
         {
             return new List<Space>(RentDB.Space);
         }
+
+
     }
 }
