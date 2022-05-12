@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RentOfWorkshopsShops.DBContext
+namespace RentOfWorkshopsCore.DBContext
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,6 @@ namespace RentOfWorkshopsShops.DBContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Space()
         {
-            this.Equipment = new HashSet<Equipment>();
             this.Rent = new HashSet<Rent>();
         }
     
@@ -27,9 +26,9 @@ namespace RentOfWorkshopsShops.DBContext
         public decimal AmountPerHour { get; set; }
         public int Square { get; set; }
         public int StatusId { get; set; }
+        public byte[] Picture { get; set; }
+        public string Description { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Equipment> Equipment { get; set; }
         public virtual House House { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rent> Rent { get; set; }

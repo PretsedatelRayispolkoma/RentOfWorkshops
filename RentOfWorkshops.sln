@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentOfWorkshopsShops", "RentOfWorkshopsShops\RentOfWorkshopsShops.csproj", "{92867791-63F2-4232-B56B-7D9251B456B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentOfWorkshopsCore", "RentOfWorkshopsShops\RentOfWorkshopsCore.csproj", "{92867791-63F2-4232-B56B-7D9251B456B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentOfWorkshopsWEB", "RentOfWorkshopsWEB\RentOfWorkshopsWEB.csproj", "{76BCE479-01BB-4FBE-9820-3A16507363E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentOfWorkshopsWEB", "RentOfWorkshopsWEB\RentOfWorkshopsWEB.csproj", "{76BCE479-01BB-4FBE-9820-3A16507363E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentOfWorkShopsConsoleApp", "RentOfWorkShopsConsoleApp\RentOfWorkShopsConsoleApp.csproj", "{84040126-92D8-4638-947C-56816D69073F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentOfWorkShopsConsoleApp", "RentOfWorkShopsConsoleApp\RentOfWorkShopsConsoleApp.csproj", "{84040126-92D8-4638-947C-56816D69073F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentOfWorkshopsWPF", "RentOfWorkshopsWPF\RentOfWorkshopsWPF.csproj", "{21D520D1-5C3D-4ADC-9E69-97F46B0C9DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentOfWorkshopsWPF", "RentOfWorkshopsWPF\RentOfWorkshopsWPF.csproj", "{21D520D1-5C3D-4ADC-9E69-97F46B0C9DBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

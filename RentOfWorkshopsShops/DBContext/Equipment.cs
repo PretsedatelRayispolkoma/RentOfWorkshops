@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RentOfWorkshopsShops.DBContext
+namespace RentOfWorkshopsCore.DBContext
 {
     using System;
     using System.Collections.Generic;
@@ -16,10 +16,8 @@ namespace RentOfWorkshopsShops.DBContext
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int SpaceId { get; set; }
         public int TypeOfEquipmentId { get; set; }
     
-        public virtual Space Space { get; set; }
         public virtual TypeOfEquipment TypeOfEquipment { get; set; }
     }
 }

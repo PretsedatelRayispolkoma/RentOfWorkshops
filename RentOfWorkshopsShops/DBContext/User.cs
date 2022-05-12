@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RentOfWorkshopsShops.DBContext
+namespace RentOfWorkshopsCore.DBContext
 {
     using System;
     using System.Collections.Generic;

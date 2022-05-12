@@ -1,4 +1,5 @@
 ﻿using System;
+using RentOfWorkshopsCore.DBConnection;
 
 namespace RentOfWorkShopsConsoleApp
 {
@@ -6,7 +7,10 @@ namespace RentOfWorkShopsConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var list = SQLConnection.RentDB.Space;
+
+            foreach (var item in list)
+                Console.WriteLine(item.TypeOfSpace + " " + item.House.Number + " " + item.House.Street.Name + " " + item.House.Street.City.Name);
         }
     }
 }

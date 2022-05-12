@@ -16,7 +16,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
@@ -29,7 +29,6 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SpaceId" Type="int" Nullable="false" />
           <Property Name="TypeOfEquipmentId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="House">
@@ -44,7 +43,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SpaceId" Type="int" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
           <Property Name="EndDate" Type="datetime" />
@@ -62,12 +61,14 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TypeOfSpaceId" Type="int" Nullable="false" />
           <Property Name="HouseId" Type="int" Nullable="false" />
           <Property Name="AmountPerHour" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Square" Type="int" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="Picture" Type="varbinary(max)" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -98,7 +99,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TypeOfSpaceId" Type="int" Nullable="false" />
         </EntityType>
@@ -106,31 +107,19 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Equipment_Space">
-          <End Role="Space" Type="Self.Space" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Space">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Equipment">
-              <PropertyRef Name="SpaceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Equipment_TypeOfEquipment">
           <End Role="TypeOfEquipment" Type="Self.TypeOfEquipment" Multiplicity="1" />
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
@@ -277,10 +266,6 @@
           <EntitySet Name="TypeOfEquipment" EntityType="Self.TypeOfEquipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfSpace" EntityType="Self.TypeOfSpace" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Equipment_Space" Association="Self.FK_Equipment_Space">
-            <End Role="Space" EntitySet="Space" />
-            <End Role="Equipment" EntitySet="Equipment" />
-          </AssociationSet>
           <AssociationSet Name="FK_Equipment_TypeOfEquipment" Association="Self.FK_Equipment_TypeOfEquipment">
             <End Role="TypeOfEquipment" EntitySet="TypeOfEquipment" />
             <End Role="Equipment" EntitySet="Equipment" />
@@ -343,7 +328,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -358,9 +343,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SpaceId" Type="Int32" Nullable="false" />
           <Property Name="TypeOfEquipmentId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Space" Relationship="Self.FK_Equipment_Space" FromRole="Equipment" ToRole="Space" />
           <NavigationProperty Name="TypeOfEquipment" Relationship="Self.FK_Equipment_TypeOfEquipment" FromRole="Equipment" ToRole="TypeOfEquipment" />
         </EntityType>
         <EntityType Name="House">
@@ -377,7 +360,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SpaceId" Type="Int32" Nullable="false" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
@@ -398,13 +381,14 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeOfSpaceId" Type="Int32" Nullable="false" />
           <Property Name="HouseId" Type="Int32" Nullable="false" />
           <Property Name="AmountPerHour" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Square" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Space" FromRole="Space" ToRole="Equipment" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="House" Relationship="Self.FK_Space_House" FromRole="Space" ToRole="House" />
           <NavigationProperty Name="Rent" Relationship="Self.FK_Rent_Space" FromRole="Space" ToRole="Rent" />
           <NavigationProperty Name="Status" Relationship="Self.FK_Space_Status" FromRole="Space" ToRole="Status" />
@@ -442,7 +426,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TypeOfSpaceId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_TypeOfEquipment" FromRole="TypeOfEquipment" ToRole="Equipment" />
@@ -452,7 +436,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Space" Relationship="Self.FK_Space_TypeOfSpace" FromRole="TypeOfSpace" ToRole="Space" />
           <NavigationProperty Name="TypeOfEquipment" Relationship="Self.FK_TypeOfEquipment_TypeOfSpace" FromRole="TypeOfSpace" ToRole="TypeOfEquipment" />
@@ -461,7 +445,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
@@ -502,18 +486,6 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Equipment_Space">
-          <End Role="Space" Type="Self.Space" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Space">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Equipment">
-              <PropertyRef Name="SpaceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -639,10 +611,6 @@
             <End Role="Client" EntitySet="Client" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_Equipment_Space" Association="Self.FK_Equipment_Space">
-            <End Role="Space" EntitySet="Space" />
-            <End Role="Equipment" EntitySet="Equipment" />
-          </AssociationSet>
           <AssociationSet Name="FK_Equipment_TypeOfEquipment" Association="Self.FK_Equipment_TypeOfEquipment">
             <End Role="TypeOfEquipment" EntitySet="TypeOfEquipment" />
             <End Role="Equipment" EntitySet="Equipment" />
@@ -707,7 +675,6 @@
               <MappingFragment StoreEntitySet="Equipment">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SpaceId" ColumnName="SpaceId" />
                 <ScalarProperty Name="TypeOfEquipmentId" ColumnName="TypeOfEquipmentId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -750,6 +717,8 @@
                 <ScalarProperty Name="AmountPerHour" ColumnName="AmountPerHour" />
                 <ScalarProperty Name="Square" ColumnName="Square" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,24 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4502fe9f838c4f24977b0ae966605c0f" Name="Diagram1">
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.City" Width="1.5" PointX="1.5" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.Client" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.Equipment" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.House" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.Rent" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.Role" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.Space" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.Status" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.Street" Width="1.5" PointX="1.5" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.TypeOfEquipment" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.TypeOfSpace" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentOfWorkshopsModel.User" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="989b2ca40a52476aa9e91320b9949d06" Name="Diagram1">
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.City" Width="1.5" PointX="1.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.Client" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.Equipment" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.House" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.Rent" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.Role" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.Space" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.Status" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.Street" Width="1.5" PointX="1.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.TypeOfEquipment" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.TypeOfSpace" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentOfWorkshopsModel.User" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="RentOfWorkshopsModel.FK_Street_City" ManuallyRouted="false" />
         <AssociationConnector Association="RentOfWorkshopsModel.FK_Rent_Client" ManuallyRouted="false" />
         <AssociationConnector Association="RentOfWorkshopsModel.FK_User_Client" ManuallyRouted="false" />
-        <AssociationConnector Association="RentOfWorkshopsModel.FK_Equipment_Space" ManuallyRouted="false" />
         <AssociationConnector Association="RentOfWorkshopsModel.FK_Equipment_TypeOfEquipment" ManuallyRouted="false" />
         <AssociationConnector Association="RentOfWorkshopsModel.FK_House_Street" ManuallyRouted="false" />
         <AssociationConnector Association="RentOfWorkshopsModel.FK_Space_House" ManuallyRouted="false" />
