@@ -1,5 +1,14 @@
-﻿<h3>SpacesCollectionComponent</h3>
+﻿@using RentOfWorkshopsCore.DBContext
+@using RentOfWorkshopsCore.DBConnection
+
+<div class="">
+    @foreach(var space in Spaces)
+    {
+        <SpaceItemComponent Space=space/>
+    }
+</div>
 
 @code {
-
+    [Parameter]
+    public List<Space> Spaces { get; set; }
 }
