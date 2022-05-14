@@ -9,6 +9,45 @@
       Title="MainPage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="SpacesLv" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="1" Grid.Column="1" Loaded="SpacesLv_Loaded">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Path = TypeOfSpace.Name}" Width="100" Grid.Column="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="10" Foreground="Black"/>
+                        <Image Source="{Binding Picture}" Grid.Column="1" MinWidth="80" Margin="10"  MaxWidth="400" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Path = House.Street.City.Name}" Grid.Column="2" Margin="10"  VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="10" Foreground="Black"/>
+                        <TextBlock Text="{Binding Path = House.Street.Name}" Grid.Column="3" Margin="10"  VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="10" Foreground="Black"/>
+                        <TextBlock Text="{Binding Path = House.Number}" Grid.Column="4" Margin="10"  VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="10" Foreground="Black"/>
+                        <TextBlock Text="{Binding Path = AmountPerHour, StringFormat= {}{0} руб.}" Margin="10"  Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="10" Foreground="Black"/>
+                        <TextBlock Text="{Binding Path = Square}" Width="20" Grid.Column="6" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="10" Foreground="Black"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

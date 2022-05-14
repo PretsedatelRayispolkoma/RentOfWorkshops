@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentOfWorkshopsCore.DBConnection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,11 @@ namespace RentOfWorkShopsWPF.Pages
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void SpacesLv_Loaded(object sender, RoutedEventArgs e)
+        {
+            SpacesLv.ItemsSource = SQLConnection.GetAllSpaces().Where(p => p.StatusId == 1);
         }
     }
 }
