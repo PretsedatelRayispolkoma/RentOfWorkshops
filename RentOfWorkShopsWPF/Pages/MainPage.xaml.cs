@@ -1,4 +1,5 @@
 ﻿using RentOfWorkshopsCore.DBConnection;
+using RentOfWorkshopsCore.DBContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,12 @@ namespace RentOfWorkShopsWPF.Pages
         private void SpacesLv_Loaded(object sender, RoutedEventArgs e)
         {
             SpacesLv.ItemsSource = SQLConnection.GetAllSpaces().Where(p => p.StatusId == 1);
+        }
+
+        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedSpace = SpacesLv.SelectedItem as Space;
+            NavigationService.Navigate(new SpaceUpdatePage(selectedSpace));
         }
     }
 }

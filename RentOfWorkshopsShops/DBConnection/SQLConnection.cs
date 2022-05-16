@@ -9,7 +9,7 @@ namespace RentOfWorkshopsCore.DBConnection
 {
     public class SQLConnection
     {
-        public static RentOfWorkshopsEntities RentDB = new RentOfWorkshopsEntities();
+        private static RentOfWorkshopsEntities RentDB = new RentOfWorkshopsEntities();
 
         public static List<User> GetAllUsers()
         {
@@ -21,6 +21,14 @@ namespace RentOfWorkshopsCore.DBConnection
             return new List<Space>(RentDB.Space);
         }
 
+        public static Space AttachSpace(Space space)
+        {
+            return RentDB.Space.Attach(space);
+        }
 
+        public static void Save()
+        {
+            RentDB.SaveChanges();
+        }
     }
 }
