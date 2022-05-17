@@ -6,16 +6,10 @@ namespace RentOfWorkshopsWEB.Shared.Modals
 {
     public class ModalBaseComponent : ComponentBase
     {
-        public string Name { get; set; }
-
         protected Guid Guid = Guid.NewGuid();
         protected string ModalDisplay = "display:none";
         protected string ModalClass = "";
-        protected string InputClass = "form-control";
         protected bool ShowBackdrop = false;
-
-        [Parameter]
-        public EventCallback<string> OnClickCallback { get; set; }
 
         public virtual void Open()
         {
@@ -30,32 +24,7 @@ namespace RentOfWorkshopsWEB.Shared.Modals
             ModalDisplay = "display:none";
             ModalClass = "";
             ShowBackdrop = false;
-            Name = "";
             StateHasChanged();
-        }
-
-        protected virtual RenderFragment Header()
-        {
-            return (builder) =>
-            {
-                builder.AddContent(1, "Defult Header");
-            };
-        }
-
-        protected virtual RenderFragment Body()
-        {
-            return (builder) =>
-            {
-                builder.AddContent(1, "Defult Body");
-            };
-        }
-
-        protected virtual RenderFragment Footer()
-        {
-            return (builder) =>
-            {
-                builder.AddContent(1, "Defult Footer");
-            };
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -99,7 +68,6 @@ namespace RentOfWorkshopsWEB.Shared.Modals
                                 builder.AddAttribute(++seq, "type", "button");
                                 builder.AddAttribute(++seq, "class", "btn btn-secondary");
                                 builder.AddAttribute(++seq, "data-dismiss", "modal");
-                                builder.AddAttribute(++seq, "onclick", Close);
                                 builder.AddContent(++seq, "Close");
                             builder.CloseElement();
                         builder.CloseElement();

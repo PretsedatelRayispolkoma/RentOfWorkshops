@@ -1,13 +1,32 @@
-﻿@inherits LayoutComponentBase
+﻿@using RentOfWorkshopsCore.DBContext
+@using RentOfWorkshopsWEB.Shared.Modals
+@inherits LayoutComponentBase
+@inject UserContext UserContext
 
 <div class="page">
     <div class="main">
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <button class="btn btn-primary" @onclick=OpenAuthModal>Sign in</button>
         </div>
-
         <div class="content px-4">
             @Body
         </div>
     </div>
 </div>
+
+<AuthComponent UserCallback=GetUser @ref="_authComponent"/>
+
+@code {
+    private AuthComponent _authComponent;
+
+    private void OpenAuthModal()
+    {
+        _authComponent.Open();
+    }
+
+    private void GetUser(User user)
+    {
+        UserContext.User = user;
+    }
+}
+

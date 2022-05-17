@@ -26,6 +26,22 @@ namespace RentOfWorkshopsCore.DBConnection
             return RentDB.Space.Attach(space);
         }
 
+        public static User GetRole(string login, string password)
+        {
+            foreach (var authUser in RentDB.User)
+            {
+                if (authUser.Login == login.Trim())
+                {
+                    if (authUser.Password == password.Trim())
+                    {
+                        return authUser;
+                    }
+                    else continue;
+                }
+            }
+            return null;
+        }
+
         public static void Save()
         {
             RentDB.SaveChanges();
