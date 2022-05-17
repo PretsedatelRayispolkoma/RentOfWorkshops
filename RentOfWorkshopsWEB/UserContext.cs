@@ -1,4 +1,5 @@
-﻿using RentOfWorkshopsCore.DBContext;
+﻿using RentOfWorkshopsCore.DBConnection;
+using RentOfWorkshopsCore.DBContext;
 
 namespace RentOfWorkshopsWEB
 {
@@ -8,7 +9,7 @@ namespace RentOfWorkshopsWEB
 
         public UserContext()
         {
-            User = new User();
+            User = SQLConnection.GetGuest();
         }
     }
 }

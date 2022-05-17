@@ -42,9 +42,22 @@ namespace RentOfWorkshopsCore.DBConnection
             return null;
         }
 
+        public static User GetGuest()
+        {
+            return RentDB.User.Where(p => p.RoleId == 3).FirstOrDefault();
+        }
+
+        public static void Registrate(string fName, string lName, string bDate, 
+            string number, string email, string login, string password, string repeatPassword)
+        {
+            Client client = new Client();
+        }
+
         public static void Save()
         {
             RentDB.SaveChanges();
         }
+
+
     }
 }

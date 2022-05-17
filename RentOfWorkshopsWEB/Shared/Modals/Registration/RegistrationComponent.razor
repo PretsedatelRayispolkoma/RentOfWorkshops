@@ -1,0 +1,48 @@
+﻿@inherits Modals.ModalBaseComponent
+
+<div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
+    <div class="modal-dialog modal-dialog-scrollable" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title unselectable">
+                    Sign up
+                </h5>
+            </div>
+            <div class="modal-body">
+                <DataFieldComponent Title="First name" Value=@_firstName/>
+                <DataFieldComponent Title="Last name" Value=@_lastName/>
+                <DataFieldComponent InputType="date" Title="Birth date" Value=@_birthDate/>
+                <DataFieldComponent Title="Phone number" Value=@_phoneNumber/>
+                <DataFieldComponent Title="E-Mail" Value="@_email"/>
+                <DataFieldComponent Title="Login" Value="@_login"/>
+                <DataFieldComponent InputType="password" Title="Password" Value="@_password"/>
+                <DataFieldComponent InputType="password" Title="Repeat Password" Value="@_repeatPassword"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="AddUser">Sign up</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+
+@code {
+    private string _firstName;
+    private string _lastName;
+    private string _birthDate;
+    private string _phoneNumber;
+    private string _email;
+    private string _login;
+    private string _password;
+    private string _repeatPassword;
+
+    private void AddUser()
+    {
+        
+    }
+}

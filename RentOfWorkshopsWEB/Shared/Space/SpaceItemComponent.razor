@@ -1,16 +1,18 @@
 ﻿@using RentOfWorkshopsCore.DBConnection
 @using RentOfWorkshopsCore.DBContext
 
-<div class="">
+<div class="" style="ve">
     @if(_photoBytes != null)
     {
         <img src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
     }
-    <p>@Space.TypeOfSpace.Name</p>
-    <p>@Space.House.Street.City.Name</p>
-    <p>@Space.House.Street.Name</p>
-    <p>@Space.House.Number</p>
-    <p>@Space.AmountPerHour руб.</p>
+    <div>
+        <p>@Space.TypeOfSpace.Name</p>
+        <p>@Space.House.Street.City.Name</p>
+        <p>@Space.House.Street.Name</p>
+        <p>@Space.House.Number</p>
+        <p>@Space.AmountPerHour руб.</p>
+    </div>
     <br />
 </div>
 

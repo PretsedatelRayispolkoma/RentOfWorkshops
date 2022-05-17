@@ -1,0 +1,45 @@
+﻿@using RentOfWorkshopsCore.Validation
+<div class="container" margin="20">
+    <label class="unselectable">
+        @Title
+    </label>
+</div>
+<div class="container">
+    <input type=@InputType class="@_inputClass form-control unselectable" @oninput=OnInput/>
+</div>
+<div class="invalid-feedback">
+    @_invalidValueMessage
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public string Value { get; set; }
+    [Parameter]
+    public string InputType { get; set; }
+
+    private string _invalidValueMessage = "";
+    private string _inputClass = "";
+
+    private void OnInput(ChangeEventArgs e)
+    {
+        Value = e.Value.ToString();
+        ValueValidation();
+    }
+
+    private void ValueValidation()
+    {
+        try
+        {
+            _invalidValueMessage = "";
+            _inputClass = "";
+            Validation.StringValidation(Value);
+        }
+        catch(Exception ex)
+        {
+            _inputClass = "is-invalid";
+            _invalidValueMessage = ex.Message;
+        }
+    }
+}
