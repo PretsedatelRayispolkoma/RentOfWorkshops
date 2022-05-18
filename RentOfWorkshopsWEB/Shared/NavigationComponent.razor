@@ -1,0 +1,42 @@
+﻿@using RentOfWorkshopsCore.DBContext
+@using RentOfWorkshopsWEB.Shared.Modals
+@using RentOfWorkshopsWEB.Shared.Modals.Registration
+@inject UserContext UserContext
+
+@if(UserContext.User.RoleId == 1 || UserContext.User.RoleId == 2)
+{
+    <button class="btn btn-secondary" @onclick=SignOutBtnClicked>Sign out</button>
+}
+else
+{
+    <button class="btn btn-primary" @onclick=SignInBtnClicked>Sign in</button>
+    <button class="btn btn-secondary" @onclick=SignUpBtnClicked>Sign up</button>
+}
+
+<AuthComponent UserCallback=GetUser @ref="_authComponent"/>
+<RegistrationComponent @ref="_regComponent"/>
+
+@code {
+    private AuthComponent _authComponent;
+    private RegistrationComponent _regComponent;
+
+    private void SignInBtnClicked()
+    {
+        _authComponent.Open();
+    }  
+
+    private void SignUpBtnClicked()
+    {
+        _regComponent.Open();
+    }
+
+    private void SignOutBtnClicked()
+    {
+        UserContext.SignOut();
+    }
+    
+    private void GetUser(User user)
+    {
+        UserContext.User = user;
+    }
+}

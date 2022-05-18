@@ -1,17 +1,25 @@
 ﻿@using RentOfWorkshopsCore.DBConnection
 @using RentOfWorkshopsCore.DBContext
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
-<div class="" style="ve">
+<div class="space-item" style="ve">
     @if(_photoBytes != null)
     {
-        <img src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
+        <img class="space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
+    }
+    else
+    {
+        <img class="space-image" src="images/noimage.jpg"/>
     }
     <div>
-        <p>@Space.TypeOfSpace.Name</p>
-        <p>@Space.House.Street.City.Name</p>
-        <p>@Space.House.Street.Name</p>
-        <p>@Space.House.Number</p>
-        <p>@Space.AmountPerHour руб.</p>
+        <a @onclick="NavigateIntoSpace">@Space.TypeOfSpace.Name</a>
+        <div class="secondary-info">
+            <p class="secondary-info-p">@Space.House.Street.City.Name</p>
+            <p class="secondary-info-p">@Space.House.Street.Name</p>
+            <p class="secondary-info-p">@Space.House.Number</p>
+            <p class="secondary-info-p">@Space.AmountPerHour руб.</p>
+        </div>
     </div>
     <br />
 </div>
@@ -27,5 +35,9 @@
             _photoBytes = Space.Picture;
         return base.OnInitializedAsync();
     }
-
+    
+    private async void NavigateIntoSpace()
+    {
+        await JSRuntime.InvokeAsync<object>("open", $"space-info/{Space.Id}");
+    }
 }

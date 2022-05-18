@@ -4,7 +4,7 @@
 <div class="">
     @foreach(var space in Spaces)
     {
-        <SpaceItemComponent Space=space/>
+        <SpaceItemComponent Space=space @key=space.GetHashCode()/>
     }
 </div>
 

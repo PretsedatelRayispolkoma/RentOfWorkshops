@@ -1,0 +1,18 @@
+﻿@page "/space-info/{CurrentSpaceID}"
+@using RentOfWorkshopsCore.DBConnection
+@using RentOfWorkshopsCore.DBContext
+
+<p>@_space.TypeOfSpace.Name</p>
+<p>@_space.Description</p>
+@code {
+    [Parameter]
+    public string CurrentSpaceID { get; set; }
+
+    private Space _space;
+
+    protected override Task OnInitializedAsync()
+    {
+        _space = SQLConnection.GetSpace(Convert.ToInt32(CurrentSpaceID));
+        return base.OnInitializedAsync();
+    }
+}

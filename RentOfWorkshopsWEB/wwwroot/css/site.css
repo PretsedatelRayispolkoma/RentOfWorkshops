@@ -48,3 +48,33 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.space-image{
+    width: 160px;
+    height: 120px;
+    margin: 30px;
+}
+
+.space-item {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    padding: 20px;
+    justify-content: space-between;
+    font-size: small;
+    border: solid;
+    border-color: silver;
+    border-radius: 4px 4px;
+    border-width: 1px 2px 1px 2px;
+}
+
+.secondary-info{
+    font-size:smaller;
+    margin: 0px;
+    padding: 0px;
+}
+
+p.secondary-info {
+    margin: 0px;
+    padding: 0px;
+}

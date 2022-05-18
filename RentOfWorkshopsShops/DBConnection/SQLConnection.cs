@@ -58,6 +58,9 @@ namespace RentOfWorkshopsCore.DBConnection
             RentDB.SaveChanges();
         }
 
-
+        public static Space GetSpace(int id)
+        {
+            return RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
+        }
     }
 }

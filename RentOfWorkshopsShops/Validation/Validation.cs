@@ -10,7 +10,7 @@ namespace RentOfWorkshopsCore.Validation
     {
         public static void StringValidation(string value)
         {
-            string invalidChars = "!@#$%^&*()_+=-}{][><?/\\~''";
+            string invalidChars = "!@#$%^&*()+=-}{][><?/\\~''";
             foreach (var chr in invalidChars)
             {
                 if (value.Contains(chr))

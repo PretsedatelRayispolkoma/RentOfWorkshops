@@ -11,5 +11,10 @@ namespace RentOfWorkshopsWEB
         {
             User = SQLConnection.GetGuest();
         }
+
+        public void SignOut()
+        {
+            User = SQLConnection.GetGuest();
+        }
     }
 }
