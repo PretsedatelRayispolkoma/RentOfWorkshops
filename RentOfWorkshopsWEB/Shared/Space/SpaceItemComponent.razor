@@ -3,7 +3,7 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
-<div class="space-item" style="ve">
+<div class="space-item">
     @if(_photoBytes != null)
     {
         <img class="space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
@@ -13,11 +13,15 @@
         <img class="space-image" src="images/noimage.jpg"/>
     }
     <div>
-        <a @onclick="NavigateIntoSpace">@Space.TypeOfSpace.Name</a>
+        <div class="space-item-title">
+            <a class="space-item-title-a" @onclick="NavigateIntoSpace">@Space.TypeOfSpace.Name</a>
+        </div>
         <div class="secondary-info">
-            <p class="secondary-info-p">@Space.House.Street.City.Name</p>
-            <p class="secondary-info-p">@Space.House.Street.Name</p>
-            <p class="secondary-info-p">@Space.House.Number</p>
+            <div class="address">
+                <p class="secondary-info-p">@Space.House.Street.City.Name, </p>
+                <p class="secondary-info-p">@Space.House.Street.Name, </p>
+                <p class="secondary-info-p">@Space.House.Number</p>
+            </div>
             <p class="secondary-info-p">@Space.AmountPerHour руб.</p>
         </div>
     </div>

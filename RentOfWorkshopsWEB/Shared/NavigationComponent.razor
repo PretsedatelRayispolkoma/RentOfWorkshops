@@ -2,16 +2,24 @@
 @using RentOfWorkshopsWEB.Shared.Modals
 @using RentOfWorkshopsWEB.Shared.Modals.Registration
 @inject UserContext UserContext
+@inject NavigationManager NavigationManager
 
-@if(UserContext.User.RoleId == 1 || UserContext.User.RoleId == 2)
-{
-    <button class="btn btn-secondary" @onclick=SignOutBtnClicked>Sign out</button>
-}
-else
-{
-    <button class="btn btn-primary" @onclick=SignInBtnClicked>Sign in</button>
-    <button class="btn btn-secondary" @onclick=SignUpBtnClicked>Sign up</button>
-}
+<div class="nav-panel">
+    <div class="nav-logo">
+        <img class="logo" src="images/golub.png" @onclick="LogoClicked"/>
+    </div>
+    <div>
+        @if(UserContext.User.RoleId == 1 || UserContext.User.RoleId == 2)
+        {
+            <button class="btn btn-secondary" @onclick=SignOutBtnClicked>Sign out</button>
+        }
+        else
+        {
+            <button class="btn btn-primary" @onclick=SignInBtnClicked>Sign in</button>
+            <button class="btn btn-secondary" @onclick=SignUpBtnClicked>Sign up</button>
+        }
+    </div>
+</div>
 
 <AuthComponent UserCallback=GetUser @ref="_authComponent"/>
 <RegistrationComponent @ref="_regComponent"/>
@@ -34,9 +42,14 @@ else
     {
         UserContext.SignOut();
     }
-    
+
     private void GetUser(User user)
     {
         UserContext.User = user;
+    }
+
+    private void LogoClicked()
+    {
+        NavigationManager.NavigateTo("");
     }
 }

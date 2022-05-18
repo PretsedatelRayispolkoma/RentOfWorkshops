@@ -1,5 +1,6 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -51,8 +52,8 @@ a, .btn-link {
 
 .space-image{
     width: 160px;
-    height: 120px;
     margin: 30px;
+    border-radius: 5px;
 }
 
 .space-item {
@@ -66,7 +67,14 @@ a, .btn-link {
     border-color: silver;
     border-radius: 4px 4px;
     border-width: 1px 2px 1px 2px;
+    box-shadow:none;
+    transition: box-shadow .2s;
 }
+
+    .space-item:hover
+    {
+        box-shadow: 0 0 3px 1px silver;
+    }
 
 .secondary-info{
     font-size:smaller;
@@ -77,4 +85,41 @@ a, .btn-link {
 p.secondary-info {
     margin: 0px;
     padding: 0px;
+}
+
+.current-space-image{
+    width: 500px;
+}
+
+.space-item-title{
+    font-size: medium;
+    color: black;
+    transition: color .2s;
+    cursor: pointer;
+}
+
+    .space-item-title:hover{
+        color: blueviolet;
+    }
+
+.address{
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: azure;
+    box-shadow: 0 0 2px 1px;
+    margin: 0px;
+}
+
+.nav-logo{
+    margin:10px;
+}
+
+.logo {
+    width: 50px;
 }
