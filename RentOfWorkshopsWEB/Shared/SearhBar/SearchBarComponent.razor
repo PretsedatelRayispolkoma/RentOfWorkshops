@@ -1,0 +1,19 @@
+﻿<div class="search-bar">
+    <div class="search-bar-input">
+        <input class="form-control" @bind="_searchString"/>
+    </div>
+    <div class="search-bar-orderby-filter">
+        <div class="order-by">
+            <select>
+                <option>По возрастанию цены</option>
+                <option>По убыванию цены</option>
+            </select>
+        </div>
+        <div class="choose-city">
+            <button class="btn btn-secondary">City</button>
+        </div>
+    </div>
+</div>
+@code {
+    private string _searchString = "";
+}

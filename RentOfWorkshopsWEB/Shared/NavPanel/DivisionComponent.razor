@@ -1,0 +1,18 @@
+﻿@using RentOfWorkshopsCore.DBContext
+@inject SpaceListFilter SpaceFilter
+
+<div class="nav-divisions-division" @onclick=OnClick>
+    @TypeOfSpace.Name
+</div>
+
+@code {
+    [Parameter]
+    public TypeOfSpace TypeOfSpace { get; set; }
+
+    private void OnClick()
+    {
+        SpaceFilter.Id = TypeOfSpace.Id;
+    }
+
+}
+

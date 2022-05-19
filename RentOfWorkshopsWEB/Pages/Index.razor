@@ -1,10 +1,28 @@
 ﻿@page "/"
-@using RentOfWorkshopsCore.DBConnection
-@using RentOfWorkshopsWEB.Shared.Space
 
-<SpacesCollectionComponent Spaces=SQLConnection.GetAllSpaces()/>
+@using RentOfWorkshopsCore.DBConnection
+@using RentOfWorkshopsCore.DBContext
+@using RentOfWorkshopsWEB.Shared.Space
+@using RentOfWorkshopsWEB.Shared.SearhBar
+
+@inject SpaceListFilter SpaceFilter
+
+<SearchBarComponent/>
+<SpacesCollectionComponent Spaces=_spaceList/>
 
 @code{
-   
+    private List<Space> _spaceList;
+
+    protected override Task OnInitializedAsync()
+    {
+        var typeOfSpace = SQLConnection.GetAllTypesOfSpace().Where(s => s.Id == SpaceFilter.Id).FirstOrDefault();
+
+        if (typeOfSpace == null)
+            _spaceList = SQLConnection.GetAllSpaces();
+        else
+            _spaceList = SQLConnection.GetAllSpaces().Where(s => s.TypeOfSpaceId == SpaceFilter.Id).ToList();
+
+        return base.OnInitializedAsync();
+    }
 
 }

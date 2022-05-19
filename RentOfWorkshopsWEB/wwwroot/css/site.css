@@ -98,8 +98,8 @@ p.secondary-info {
     cursor: pointer;
 }
 
-    .space-item-title:hover{
-        color: blueviolet;
+    .space-item-title:hover {
+        color: #8b00ff;
     }
 
 .address{
@@ -111,15 +111,68 @@ p.secondary-info {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: azure;
+    background-color: #8b00ff;
     box-shadow: 0 0 2px 1px;
     margin: 0px;
 }
 
-.nav-logo{
-    margin:10px;
+.nav-logo {
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .logo {
-    width: 50px;
+    width: 100px;
+}
+
+.nav-divisions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.nav-divisions-division{
+    margin: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    color: white;
+    transition: color .1s;
+}
+    .nav-divisions-division:hover {
+        color: #ede1ed;
+    }
+
+.nav-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-button {
+    margin: 10px;
+    border: solid;
+    border-width: 1px;
+    border-color: transparent;
+    border-radius: 5px;
+    background-color: #fde910;
+    width: 90px;
+    height: 30px;
+    font: normal small Arial;
+    color: #8b00ff;
+    transition: background-color .2s, border-color .4s;
+}
+
+    .nav-button:hover {
+        background-color: #fcf172;
+        border-color: #fde910;
+    }
+
+.search-bar-orderby-filter
+{
+    display: flex;
+    flex-direction: row;
 }

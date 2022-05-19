@@ -27,6 +27,7 @@ namespace RentOfWorkshopsWEB
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<UserContext>();
+            services.AddSingleton<SpaceListFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -62,5 +62,10 @@ namespace RentOfWorkshopsCore.DBConnection
         {
             return RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
         }
+
+        public static List<TypeOfSpace> GetAllTypesOfSpace()
+        {
+            return RentDB.TypeOfSpace.ToList();
+        }
     }
 }
