@@ -4,17 +4,15 @@ namespace RentOfWorkshopsWEB
 {
     public class SpaceListFilter
     {
-        private int _id;
+        private int _typeOfSpaceId = 2;
 
-        public int Id
+        public int TypeOfSpaceId
         {
-            get => _id;
+            get => _typeOfSpaceId;
             set
             {
-                _id = value;
-                DivisionSelected?.Invoke();
+                _typeOfSpaceId = value;
             }
         }
-        public event Action DivisionSelected;
     }
 }

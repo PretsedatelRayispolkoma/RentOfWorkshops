@@ -176,3 +176,11 @@ p.secondary-info {
     display: flex;
     flex-direction: row;
 }
+
+input.search{
+    width: 200px;
+}
+
+.search-bar-input{
+    
+}

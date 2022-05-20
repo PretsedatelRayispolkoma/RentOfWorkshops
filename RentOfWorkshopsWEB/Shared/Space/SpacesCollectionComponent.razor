@@ -1,5 +1,6 @@
 ﻿@using RentOfWorkshopsCore.DBContext
 @using RentOfWorkshopsCore.DBConnection
+@inject SpaceListFilter SpaceFilter
 
 <div class="">
     @foreach(var space in Spaces)
@@ -11,4 +12,9 @@
 @code {
     [Parameter]
     public List<Space> Spaces { get; set; }
+
+    private void OnStateChange()
+    {
+        InvokeAsync(() => StateHasChanged());
+    }
 }

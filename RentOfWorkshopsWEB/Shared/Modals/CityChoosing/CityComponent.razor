@@ -1,0 +1,18 @@
+﻿@using RentOfWorkshopsCore.DBContext
+
+<div class="modal-city" @onclick=OnClick>
+    @City.Name
+</div>
+
+@code {
+    [Parameter]
+    public City City { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnCityIdCB { get; set; }
+
+    private void OnClick()
+    {
+        OnCityIdCB.InvokeAsync(City.Id);
+    }
+}

@@ -21,6 +21,16 @@ namespace RentOfWorkshopsCore.DBConnection
             return new List<Space>(RentDB.Space);
         }
 
+        public static List<TypeOfSpace> GetAllTypesOfSpace()
+        {
+            return RentDB.TypeOfSpace.ToList();
+        }
+
+        public static List<City> GetAllCities()
+        {
+            return RentDB.City.ToList();
+        }
+
         public static Space AttachSpace(Space space)
         {
             return RentDB.Space.Attach(space);
@@ -63,9 +73,6 @@ namespace RentOfWorkshopsCore.DBConnection
             return RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
         }
 
-        public static List<TypeOfSpace> GetAllTypesOfSpace()
-        {
-            return RentDB.TypeOfSpace.ToList();
-        }
+
     }
 }
