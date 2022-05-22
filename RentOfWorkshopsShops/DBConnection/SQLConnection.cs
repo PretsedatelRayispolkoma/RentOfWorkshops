@@ -36,6 +36,19 @@ namespace RentOfWorkshopsCore.DBConnection
             return RentDB.Status.ToList();
         }
 
+        public static void AddSpace(Space space)
+        {
+            RentDB.Space.Add(space);
+            RentDB.SaveChanges();
+        }
+
+        public static void DeleteSpace(int id)
+        {
+            var currentSpace = RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
+            RentDB.Space.Remove(currentSpace);
+            RentDB.SaveChanges();
+        }
+
         public static Space AttachSpace(Space space)
         {
             return RentDB.Space.Attach(space);

@@ -23,16 +23,6 @@
         <div class="nav-buttons">
             @if(UserContext.User.RoleId == 1 || UserContext.User.RoleId == 2)
             {
-                @*<div class="user-profile">
-                    if(_photoBytes != null)
-                    {
-                        <img class="profile-img" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
-                    }
-                    else
-                    {
-                        <img class="profile-img" src="images/golub.png"/>
-                    }
-                </div>*@
                 <button class="nav-button" @onclick=SignOutBtnClicked>Sign out</button>
             }
             else
