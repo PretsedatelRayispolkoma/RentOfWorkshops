@@ -41,11 +41,14 @@
 <ChooseCityModalComponent OnCityChooseCB=ChooseCity @ref=_chooseCity />
 
 @code {
+    [Parameter]
+    public EventCallback<string> OnSearchCallback { get; set; }
+
     private ChooseCityModalComponent _chooseCity;
 
     private void OnChange(ChangeEventArgs e)
     {
-        SpaceFilter.SearchString = e.Value.ToString();
+        OnSearchCallback.InvokeAsync(e.Value.ToString());
     }
 
     private void ChooseCity(City city)

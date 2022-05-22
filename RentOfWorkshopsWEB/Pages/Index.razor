@@ -7,21 +7,41 @@
 
 @inject SpaceListFilter SpaceFilter
 
-<SearchBarComponent/>
+<SearchBarComponent OnSearchCallback="OnSearch"/>
 <SpacesCollectionComponent Spaces=_spaceList/>
 
 @code{
     private List<Space> _spaceList;
 
+    private string _searchString;
+
     protected override Task OnInitializedAsync()
     {
-        SpaceFilter.UpdateList(_spaceList);
-        SpaceFilter.StateChanged += OnStateChange;
+        UpdateList();
         return base.OnInitializedAsync();
     }
 
-    private void OnStateChange()
+    private void OnSearch(string searchString)
     {
-        InvokeAsync(() => StateHasChanged());
+        _searchString = searchString;
+        UpdateList();
+    }
+
+    private void UpdateList()
+    {
+        _spaceList = SQLConnection.GetAllSpaces();
+
+        var typeOfSpace = SQLConnection.GetAllTypesOfSpace().Where(s => s.Id == SpaceFilter.TypeOfSpaceId).FirstOrDefault();
+
+        if (typeOfSpace != null)
+            _spaceList = SQLConnection.GetAllSpaces().Where(s => s.TypeOfSpaceId == SpaceFilter.TypeOfSpaceId).ToList();
+
+        if(!String.IsNullOrEmpty(_searchString))
+            _spaceList = _spaceList.Where(p => p.House.Street.Name.ToLower().Contains(_searchString.ToLower())).ToList();
+
+        if (SpaceFilter.City != null)
+            _spaceList = _spaceList.Where(p => p.House.Street.City.Id == SpaceFilter.City.Id).ToList();
+
+        StateHasChanged();
     }
 }
