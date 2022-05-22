@@ -5,14 +5,14 @@ namespace RentOfWorkshopsWEB
 {
     public class UserContext
     {
-        public User User { get; set; }
+        internal User User { get; set; }
 
         public UserContext()
         {
             User = SQLConnection.GetGuest();
         }
 
-        public void SignOut()
+        internal void SignOut()
         {
             User = SQLConnection.GetGuest();
         }

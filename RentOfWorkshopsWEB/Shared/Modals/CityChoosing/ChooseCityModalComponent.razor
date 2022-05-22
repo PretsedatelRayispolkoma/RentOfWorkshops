@@ -2,6 +2,8 @@
 @using RentOfWorkshopsCore.DBContext
 @inherits Modals.ModalBaseComponent
 
+@inject SpaceListFilter SpaceFilter
+
 <div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
     <div class="modal-dialog modal-dialog-scrollable" role="document" >
         <div class="modal-content">
@@ -12,23 +14,46 @@
             </div>
             <div class="modal-body">
                 @foreach (var city in SQLConnection.GetAllCities())
-               {
-                   
-               }
+                {
+                    <CityComponent City=city OnCityIdCB=ChooseCity/>
+                }
+                <div class="modal-city" @onclick=OnClick>
+                    Все
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick="ChooseCity">Sign up</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="AddCity">Выбрать</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Закрыть</button>
             </div>
         </div>
     </div>
 </div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+
 @code {
     [Parameter]
     public EventCallback<City> OnCityChooseCB { get; set; }
 
-    private void ChooseCity()
+    private City _city;
+
+    private void ChooseCity(City city)
     {
-        
+        _city = city;
+    }
+
+    private void AddCity()
+    {
+        OnCityChooseCB.InvokeAsync(_city);
+        Close();
+        StateHasChanged();
+    }
+
+    private void OnClick()
+    {
+        SpaceFilter.City = null;
     }
 }

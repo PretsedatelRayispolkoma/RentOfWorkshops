@@ -12,9 +12,4 @@
 @code {
     [Parameter]
     public List<Space> Spaces { get; set; }
-
-    private void OnStateChange()
-    {
-        InvokeAsync(() => StateHasChanged());
-    }
 }

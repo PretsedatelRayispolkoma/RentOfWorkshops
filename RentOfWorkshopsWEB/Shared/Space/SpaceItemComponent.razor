@@ -3,31 +3,42 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
-<div class="space-item">
-    @if(_photoBytes != null)
-    {
-        <img class="space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
-    }
-    else
-    {
-        <img class="space-image" src="images/noimage.jpg"/>
-    }
-    <div>
-        <div class="space-item-title">
-            <a class="space-item-title-a" @onclick="NavigateIntoSpace">@Space.TypeOfSpace.Name</a>
-        </div>
-        <div class="secondary-info">
-            <div class="address">
-                <p class="secondary-info-p">@Space.House.Street.City.Name, </p>
-                <p class="secondary-info-p">@Space.House.Street.Name, </p>
-                <p class="secondary-info-p">@Space.House.Number</p>
+<div class="space">
+    <div/>
+    <div class="space-item">
+        @if(_photoBytes != null)
+        {
+            <img class="space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
+        }
+        else
+        {
+            <img class="space-image" src="images/noimage.jpg"/>
+        }
+        <div class="space-item-info">
+            <div class="space-item-title">
+                <a class="space-item-title-a" @onclick="NavigateIntoSpace">@Space.TypeOfSpace.Name</a>
             </div>
-            <p class="secondary-info-p">@Space.AmountPerHour руб.</p>
+            <div class="secondary-info">
+                <div class="address">
+                    <p class="secondary-info-p">@Space.House.Street.Name, </p>
+                    <p class="secondary-info-p">@Space.House.Number</p>
+                </div>
+            </div>
+        </div>
+        <div class="space-item-info-numbers">
+            <div>
+                 <p class="space-item-info-numbers-p">@Space.AmountPerHour руб./час</p>
+            </div>
+            <div>
+               <p class="space-item-info-numbers-p">@Space.Square кв. м</p>
+            </div>
+        </div>
+        <div class="make-order">
+            <button class="make-order-btn">Rent</button>
         </div>
     </div>
-    <br />
+    <div/>
 </div>
-
 @code {
     [Parameter]
     public Space Space { get; set; }

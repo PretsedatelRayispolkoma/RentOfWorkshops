@@ -9,10 +9,10 @@
     public City City { get; set; }
 
     [Parameter]
-    public EventCallback<int> OnCityIdCB { get; set; }
+    public EventCallback<City> OnCityIdCB { get; set; }
 
     private void OnClick()
     {
-        OnCityIdCB.InvokeAsync(City.Id);
+        OnCityIdCB.InvokeAsync(City);
     }
 }

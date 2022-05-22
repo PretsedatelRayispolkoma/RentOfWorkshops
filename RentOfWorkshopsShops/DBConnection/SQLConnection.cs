@@ -73,6 +73,6 @@ namespace RentOfWorkshopsCore.DBConnection
             return RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
         }
 
-
+        public static event Action StateChanged;
     }
 }
