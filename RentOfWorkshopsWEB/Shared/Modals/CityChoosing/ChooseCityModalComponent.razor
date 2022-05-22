@@ -2,7 +2,7 @@
 @using RentOfWorkshopsCore.DBContext
 @inherits Modals.ModalBaseComponent
 
-@inject SpaceListFilter SpaceFilter
+@inject SpaceCollection SpaceCollection
 
 <div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
     <div class="modal-dialog modal-dialog-scrollable" role="document" >
@@ -49,11 +49,12 @@
     {
         OnCityChooseCB.InvokeAsync(_city);
         Close();
+        SpaceCollection.UpdateList();
         StateHasChanged();
     }
 
     private void OnClick()
     {
-        SpaceFilter.City = null;
+        SpaceCollection.City = null;
     }
 }

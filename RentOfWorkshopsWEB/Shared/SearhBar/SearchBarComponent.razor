@@ -1,14 +1,14 @@
 ﻿@using RentOfWorkshopsCore.DBContext
 @using RentOfWorkshopsWEB.Shared.Modals.CityChoosing
 
-@inject SpaceListFilter SpaceFilter
+@inject SpaceCollection SpaceCollection
 
 <div class="search">
     <div/>
     <div class="search-bar">
         <div class="search-bar-elements">
             <div class="search-bar-input">
-                <input class="form-control search" @onchange=OnChange/>
+                <input class="form-control search" @oninput=OnInput/>
             </div>
             <div class="order-by">
                 <select>
@@ -24,9 +24,9 @@
         
         <div class="choose-city">
             <button class="choose-city-btn" @onclick="OnCityBtnClick">
-                @if(SpaceFilter.City != null)
+                @if(SpaceCollection.City != null)
                 {
-                    @SpaceFilter.City.Name;
+                    @SpaceCollection.City.Name;
                 }
                 else
                 {
@@ -41,19 +41,17 @@
 <ChooseCityModalComponent OnCityChooseCB=ChooseCity @ref=_chooseCity />
 
 @code {
-    [Parameter]
-    public EventCallback<string> OnSearchCallback { get; set; }
-
     private ChooseCityModalComponent _chooseCity;
 
-    private void OnChange(ChangeEventArgs e)
+    private void OnInput(ChangeEventArgs e)
     {
-        OnSearchCallback.InvokeAsync(e.Value.ToString());
+        SpaceCollection.SearchString = e.Value.ToString();
+        SpaceCollection.UpdateList();
     }
 
     private void ChooseCity(City city)
     {
-        SpaceFilter.City = city;
+        SpaceCollection.City = city;
     }
 
     private void OnCityBtnClick()

@@ -5,43 +5,20 @@
 @using RentOfWorkshopsWEB.Shared.Space
 @using RentOfWorkshopsWEB.Shared.SearhBar
 
-@inject SpaceListFilter SpaceFilter
+@inject SpaceCollection SpaceCollection
 
-<SearchBarComponent OnSearchCallback="OnSearch"/>
-<SpacesCollectionComponent Spaces=_spaceList/>
+<SearchBarComponent/>
+<SpacesCollectionComponent Spaces=SpaceCollection.SpaceList/>
 
 @code{
-    private List<Space> _spaceList;
-
-    private string _searchString;
-
     protected override Task OnInitializedAsync()
     {
-        UpdateList();
+        SpaceCollection.StateChanged += OnStateChanged;
         return base.OnInitializedAsync();
     }
 
-    private void OnSearch(string searchString)
+    private void OnStateChanged(List<Space> spaces)
     {
-        _searchString = searchString;
-        UpdateList();
-    }
-
-    private void UpdateList()
-    {
-        _spaceList = SQLConnection.GetAllSpaces();
-
-        var typeOfSpace = SQLConnection.GetAllTypesOfSpace().Where(s => s.Id == SpaceFilter.TypeOfSpaceId).FirstOrDefault();
-
-        if (typeOfSpace != null)
-            _spaceList = SQLConnection.GetAllSpaces().Where(s => s.TypeOfSpaceId == SpaceFilter.TypeOfSpaceId).ToList();
-
-        if(!String.IsNullOrEmpty(_searchString))
-            _spaceList = _spaceList.Where(p => p.House.Street.Name.ToLower().Contains(_searchString.ToLower())).ToList();
-
-        if (SpaceFilter.City != null)
-            _spaceList = _spaceList.Where(p => p.House.Street.City.Id == SpaceFilter.City.Id).ToList();
-
-        StateHasChanged();
+        InvokeAsync(StateHasChanged);
     }
 }

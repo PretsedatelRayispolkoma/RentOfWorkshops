@@ -1,5 +1,6 @@
 ﻿@using RentOfWorkshopsCore.DBContext
-@inject SpaceListFilter SpaceFilter
+
+@inject SpaceCollection SpaceCollection
 
 <div class="nav-divisions-division" @onclick=OnClick>
     @TypeOfSpace.Name
@@ -11,7 +12,8 @@
 
     private void OnClick()
     {
-        SpaceFilter.TypeOfSpaceId = TypeOfSpace.Id;
+        SpaceCollection.TypeOfSpaceId = TypeOfSpace.Id;
+        SpaceCollection.UpdateList();
     }
 }
 
