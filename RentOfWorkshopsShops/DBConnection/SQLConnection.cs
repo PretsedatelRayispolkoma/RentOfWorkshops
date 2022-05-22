@@ -31,6 +31,11 @@ namespace RentOfWorkshopsCore.DBConnection
             return RentDB.City.ToList();
         }
 
+        public static List<Status> GetStatuses()
+        {
+            return RentDB.Status.ToList();
+        }
+
         public static Space AttachSpace(Space space)
         {
             return RentDB.Space.Attach(space);

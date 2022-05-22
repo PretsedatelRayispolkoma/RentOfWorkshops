@@ -11,14 +11,15 @@
                 <input class="form-control search" @oninput=OnInput/>
             </div>
             <div class="order-by">
-                <select>
-                    <option>По возрастанию цены</option>
-                    <option>По убыванию цены</option>
+                <select class="form-control form-control-sm" @onchange=SelectOnChange>
+                    <option selected value="1">По популярности</option>
+                    <option value="2">По возрастанию цены</option>
+                    <option value="3">По убыванию цены</option>
                 </select>
             </div>
             <div class="is-busy">
                 <label>Показывать занятые</label>
-                <input type="checkbox" class="form-check-input" />
+                <input type="checkbox" class="form-check-input" @onchange=CheckBoxChecked/>
             </div>
         </div>
         
@@ -49,6 +50,8 @@
         SpaceCollection.UpdateList();
     }
 
+    private bool _showAll = false;
+
     private void ChooseCity(City city)
     {
         SpaceCollection.City = city;
@@ -57,5 +60,17 @@
     private void OnCityBtnClick()
     {
         _chooseCity.Open();
+    }
+
+    private void SelectOnChange(ChangeEventArgs e)
+    {
+        SpaceCollection.OrderBy = Convert.ToInt32(e.Value);
+        SpaceCollection.UpdateList();
+    }
+
+    private void CheckBoxChecked(ChangeEventArgs e)
+    {       
+        SpaceCollection.ShowAll = Convert.ToBoolean(e.Value);
+        SpaceCollection.UpdateList();
     }
 }

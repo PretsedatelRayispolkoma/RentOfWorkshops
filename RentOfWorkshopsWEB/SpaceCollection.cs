@@ -19,7 +19,16 @@ namespace RentOfWorkshopsWEB
             }
         }
 
-        internal int TypeOfSpaceId { get; set; }
+        public SpaceCollection()
+        {
+            UpdateList();
+        }
+
+        internal bool ShowAll { get; set; } = false;
+
+        internal int OrderBy { get; set; } = 1;
+
+        internal int TypeOfSpaceId { get; set; } = 2;
 
         internal string SearchString { get; set; }
 
@@ -27,7 +36,7 @@ namespace RentOfWorkshopsWEB
 
         internal ValueTask UpdateList()
         {
-            _spaceList = SQLConnection.GetAllSpaces();
+            _spaceList = SQLConnection.GetAllSpaces().Where(p => p.StatusId == 1).ToList();
 
             var typeOfSpace = SQLConnection.GetAllTypesOfSpace().Where(s => s.Id == TypeOfSpaceId).FirstOrDefault();
 
@@ -39,6 +48,25 @@ namespace RentOfWorkshopsWEB
 
             if (City != null)
                 _spaceList = _spaceList.Where(p => p.House.Street.City.Id == City.Id).ToList();
+            
+            switch(OrderBy)
+            {
+                case 1:
+                    _spaceList = _spaceList.OrderBy(p => p.Id).ToList();
+                    break;
+                case 2:
+                    _spaceList = _spaceList.OrderBy(p => p.AmountPerHour).ToList();
+                    break;
+                case 3:
+                    _spaceList = _spaceList.OrderByDescending(p => p.AmountPerHour).ToList();
+                    break;
+                default:
+                    _spaceList = _spaceList.OrderBy(p => p.Id).ToList();
+                    break;
+            }
+
+            if (ShowAll)
+                _spaceList = _spaceList.Where(p => p.StatusId == 1 || p.StatusId == 2).ToList();
 
             StateChanged?.Invoke(_spaceList);
 

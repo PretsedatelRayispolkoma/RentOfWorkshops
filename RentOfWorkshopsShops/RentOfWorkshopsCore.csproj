@@ -105,6 +105,9 @@
     <Compile Include="DBContext\Role.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBContext\SecondaryPictures.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBContext\Space.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>

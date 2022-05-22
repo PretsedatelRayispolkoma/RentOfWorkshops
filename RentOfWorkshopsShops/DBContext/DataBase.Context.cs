@@ -38,5 +38,6 @@ namespace RentOfWorkshopsCore.DBContext
         public virtual DbSet<TypeOfEquipment> TypeOfEquipment { get; set; }
         public virtual DbSet<TypeOfSpace> TypeOfSpace { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<SecondaryPictures> SecondaryPictures { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace RentOfWorkshopsCore.DBContext
         public Space()
         {
             this.Rent = new HashSet<Rent>();
+            this.SecondaryPictures = new HashSet<SecondaryPictures>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,7 @@ namespace RentOfWorkshopsCore.DBContext
         public virtual ICollection<Rent> Rent { get; set; }
         public virtual Status Status { get; set; }
         public virtual TypeOfSpace TypeOfSpace { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SecondaryPictures> SecondaryPictures { get; set; }
     }
 }

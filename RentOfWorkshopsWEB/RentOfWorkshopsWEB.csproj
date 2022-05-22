@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor.ContextMenu" Version="1.14.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="System.Security.AccessControl" Version="6.0.0" />

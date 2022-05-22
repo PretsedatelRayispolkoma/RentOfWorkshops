@@ -27,6 +27,7 @@ namespace RentOfWorkshopsCore.DBContext
         public System.DateTime BirthDate { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public byte[] Picture { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rent> Rent { get; set; }

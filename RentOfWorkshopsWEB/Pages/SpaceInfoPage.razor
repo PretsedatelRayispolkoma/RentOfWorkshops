@@ -3,30 +3,38 @@
 @using RentOfWorkshopsCore.DBConnection
 @using RentOfWorkshopsCore.DBContext
 
-<div class="current-space">
-    <div class="space-maininfo">
-        <div class="current-space-image">
-            @if(_photoBytes != null)
-            {
-                <img class="current-space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
-            }
-            else
-            {
-                <img class="current-space-image" src="images/noimage.jpg"/>
-            }
+<div class="space">
+    <div/>
+    <div>
+        <div class="space-maininfo">
+            <div class="space-maininfo-title">
+                <p>@_space.TypeOfSpace.Name</p>
+            </div>
+            <div class="main-info">
+                <div class="current-space-image">
+                    @if(_photoBytes != null)
+                    {
+                        <img class="current-space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
+                    }
+                    else
+                    {
+                        <img class="current-space-image" src="images/noimage.jpg"/>
+                    }
+                </div>
+                <div class="space-info">
+                    <p>@_space.House.Street.City.Name</p>
+                    <p>@_space.House.Street.Name</p>
+                    <p>@_space.House.Number</p>
+                    <p>@_space.Square</p>
+                    <p>@_space.AmountPerHour</p>
+                </div>
+            </div>  
         </div>
-        <div class="space-info">
-            <p>@_space.TypeOfSpace.Name</p>
-            <p>@_space.House.Street.City.Name</p>
-            <p>@_space.House.Street.Name</p>
-            <p>@_space.House.Number</p>
-            <p>@_space.Square</p>
-            <p>@_space.AmountPerHour</p>
+        <div class="description"> 
+            @_space.Description
         </div>
     </div>
-    <div class="description"> 
-        @_space.Description
-    </div>
+    <div/>
 </div>
 
 @code {
