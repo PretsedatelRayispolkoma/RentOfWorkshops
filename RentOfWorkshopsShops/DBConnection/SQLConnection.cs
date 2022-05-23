@@ -36,6 +36,16 @@ namespace RentOfWorkshopsCore.DBConnection
             return RentDB.Status.ToList();
         }
 
+        public static List<Client> GetAllClients()
+        {
+            return RentDB.Client.ToList();
+        }
+
+        public static Space GetSpace(int id)
+        {
+            return RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
+        }
+
         public static void AddSpace(Space space)
         {
             RentDB.Space.Add(space);
@@ -46,6 +56,13 @@ namespace RentOfWorkshopsCore.DBConnection
         {
             var currentSpace = RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
             RentDB.Space.Remove(currentSpace);
+            RentDB.SaveChanges();
+        }
+
+        public static void Update(int id, Space space)
+        {
+            var newSpace = RentDB.Space.FirstOrDefault<Space>(p => p.Id == id);
+            newSpace = space;
             RentDB.SaveChanges();
         }
 
@@ -86,9 +103,29 @@ namespace RentOfWorkshopsCore.DBConnection
             RentDB.SaveChanges();
         }
 
-        public static Space GetSpace(int id)
+        public static void AddClient(Client client)
         {
-            return RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
+            RentDB.Client.Add(client);
+            RentDB.SaveChanges();
+        }
+
+        public static void DeleteClient(int id)
+        {
+            var currentClient = RentDB.Client.Where(p => p.Id == id).FirstOrDefault();
+            RentDB.Client.Remove(currentClient);
+            RentDB.SaveChanges();
+        }
+
+        public static void Update(int id, Client client)
+        {
+            var newClient = RentDB.Client.FirstOrDefault<Client>(p => p.Id == id);
+            newClient = client;
+            RentDB.SaveChanges();
+        }
+
+        public static Client AttachClient(Client client)
+        {
+            return RentDB.Client.Attach(client);
         }
     }
 }

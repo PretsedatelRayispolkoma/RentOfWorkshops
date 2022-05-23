@@ -17,14 +17,14 @@ namespace RentOfWorkshopAPI.Services
                 _spacesList.Add(new SpaceModel
                 {
                     Id = space.Id,
-                    TypeOfSpaceId = space.TypeOfSpaceId,
+                    TypeOfSpaceName = space.TypeOfSpace.Name,
                     AmountPerHour = space.AmountPerHour,
                     Description = space.Description,
                     Square = space.Square,
-                    HouseId = space.HouseId,
-                    Picture = space.Picture,
-                    StatusId = space.StatusId
-                });
+                    Address = space.House.Street.City.Name + ", " + space.House.Street.Name +
+                    ", " + space.House.Number,
+                    StatusId = space.Status.Name
+                });  
         }
 
         public static List<SpaceModel> SpaceList => _spacesList;
@@ -43,6 +43,11 @@ namespace RentOfWorkshopAPI.Services
                 return;
 
             SQLConnection.DeleteSpace(id);
+        }
+
+        public static void Update(int id, Space space)
+        {
+            SQLConnection.Update(id, space);
         }
     }
 }
