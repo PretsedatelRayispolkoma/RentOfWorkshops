@@ -296,3 +296,11 @@ input.search{
     width: 50px;
     border-radius: 10px;
 }
+
+.update-remove-btn
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
