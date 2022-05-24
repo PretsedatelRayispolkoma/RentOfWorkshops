@@ -127,5 +127,13 @@ namespace RentOfWorkshopsCore.DBConnection
         {
             return RentDB.Client.Attach(client);
         }
+
+        public static void AddAddress(City city, Street street, House house)
+        {
+            RentDB.City.Add(city);
+            RentDB.Street.Add(street);
+            RentDB.House.Add(house);
+            RentDB.SaveChanges();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using RentOfWorkShopsConsoleApp.ProjectService;
 using RentOfWorkshopsCore.DBConnection;
 
 namespace RentOfWorkShopsConsoleApp
@@ -7,10 +8,15 @@ namespace RentOfWorkShopsConsoleApp
     {
         static void Main(string[] args)
         {
-            //var list = SQLConnection.RentDB.Space;
+            AuthRequest.Authorization();
 
-            //foreach (var item in list)
-            //    Console.WriteLine(item.TypeOfSpace + " " + item.House.Number + " " + item.House.Street.Name + " " + item.House.Street.City.Name);
+            Console.WriteLine("Requests to data base:\n" +
+                "add_space \nget_spaces");
+            while(true)
+            {
+                string request = Console.ReadLine();
+                SpaceRequest.AnswerRequest(request);
+            }
         }
     }
 }
