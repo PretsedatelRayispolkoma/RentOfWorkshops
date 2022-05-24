@@ -36,7 +36,7 @@ namespace RentOfWorkshopsWEB
 
         internal ValueTask UpdateList()
         {
-            _spaceList = SQLConnection.GetAllSpaces().Where(p => p.StatusId == 1).ToList();
+            _spaceList = SQLConnection.GetAllSpaces().ToList();
 
             var typeOfSpace = SQLConnection.GetAllTypesOfSpace().Where(s => s.Id == TypeOfSpaceId).FirstOrDefault();
 
@@ -65,8 +65,7 @@ namespace RentOfWorkshopsWEB
                     break;
             }
 
-            if (ShowAll)
-                _spaceList = _spaceList.Where(p => p.StatusId == 1 || p.StatusId == 2).ToList();
+            _spaceList = _spaceList.Where(p => p.StatusId == 1).ToList();
 
             StateChanged?.Invoke(_spaceList);
 

@@ -1,4 +1,6 @@
-﻿@inherits Modals.ModalBaseComponent
+﻿@using RentOfWorkshopsCore.DBConnection
+@using RentOfWorkshopsCore.DBContext
+@inherits Modals.ModalBaseComponent
 
 <div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
     <div class="modal-dialog modal-dialog-scrollable" role="document" >
@@ -9,14 +11,14 @@
                 </h5>
             </div>
             <div class="modal-body">
-                <DataFieldComponent Title="First name" Value=@_firstName/>
-                <DataFieldComponent Title="Last name" Value=@_lastName/>
-                <DataFieldComponent Title="Birth date" Value=@_birthDate/>
-                <DataFieldComponent Title="Phone number" Value=@_phoneNumber/>
-                <DataFieldComponent Title="E-Mail" Value="@_email"/>
-                <DataFieldComponent Title="Login" Value="@_login"/>
-                <DataFieldComponent InputType="password" Title="Password" Value="@_password"/>
-                <DataFieldComponent InputType="password" Title="Repeat Password" Value="@_repeatPassword"/>
+                <DataFieldComponent Title="First name" ValueCallback=OnFirstNameCB/>
+                <DataFieldComponent Title="Last name" ValueCallback=OnLastNameCB/>
+                <DateFieldComponent Title="Birth date" DateCallback=OnBirthDateCB/>
+                <PhoneFieldComponent Title="Phone number" ValueCallback=OnNumberCB/>
+                <EmailFieldComponent Title="E-mail" ValueCallback=OnEmailCB/>
+                <DataFieldComponent Title="Login" ValueCallback=OnLoginCB/>
+                <DataFieldComponent InputType="password" Title="Password" ValueCallback=OnPWCB/>
+                <DataFieldComponent InputType="password" Title="Repeat Password" ValueCallback=OnRPWCB/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" @onclick="AddUser">Sign up</button>
@@ -34,7 +36,7 @@
 @code {
     private string _firstName;
     private string _lastName;
-    private string _birthDate;
+    private DateTime _birthDate;
     private string _phoneNumber;
     private string _email;
     private string _login;
@@ -43,6 +45,77 @@
 
     private void AddUser()
     {
-        
+        Client newClient = new Client();
+        newClient.FirstName = _firstName;
+        newClient.LastName = _lastName;
+        newClient.BirthDate = _birthDate;
+        newClient.Email = _email + "@gmail.com";
+        newClient.PhoneNumber = "+" + _phoneNumber;
+
+        User newUser = new User();
+
+        foreach(var user in SQLConnection.GetAllUsers())
+        {
+            if (user.Login == _login)
+                return;
+        }
+
+        if (_password != _repeatPassword)
+            return;
+
+        newUser.Login = _login;
+        newUser.Password = _password;
+
+        try
+        {
+            SQLConnection.AddClient(newClient);
+            newUser.ClientId = newClient.Id;
+            newUser.RoleId = 2;
+            SQLConnection.AddUser(newUser);
+        }
+        catch
+        {}
+
+        Close();
+    }
+
+    private void OnFirstNameCB(string value)
+    {
+        _firstName = value;
+    }
+
+    private void OnLastNameCB(string value)
+    {
+        _lastName = value;
+    }
+
+    private void OnBirthDateCB(DateTime value)
+    {
+        _birthDate = value;
+    }
+
+    private void OnNumberCB(string value)
+    {
+        _phoneNumber = value;
+    }
+
+    private void OnEmailCB(string value)
+    {
+        _email = value;
+    }
+
+    private void OnLoginCB(string value)
+    {
+        _login = value;
+    }
+
+    private void OnPWCB(string value)
+    {
+        _password = value;
+    }
+
+    private void OnRPWCB(string value)
+    {
+        _repeatPassword = value;
     }
 }

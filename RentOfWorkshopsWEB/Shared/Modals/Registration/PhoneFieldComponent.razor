@@ -16,7 +16,7 @@
 @code {
     private void OnInput(ChangeEventArgs e)
     {
-        _value = e.Value.ToString();
+        _value = e.Value;
         ValueValidation();
     }
 
@@ -26,7 +26,7 @@
         {
             _invalidValueMessage = "";
             _inputClass = "";
-            Validation.StringValidation(_value.ToString());
+            Validation.PhoneValidation(_value.ToString());
             ValueCallback.InvokeAsync(_value.ToString());
         }
         catch(Exception ex)

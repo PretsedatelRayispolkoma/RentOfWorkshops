@@ -6,17 +6,19 @@
         @Title
     </label>
 </div>
-<div class="container">
+<div class="container input-group mb-3">
     <input type=@InputType class="@_inputClass form-control unselectable" @oninput=OnInput/>
+    <span class="input-group-text" id="basic-addon2">@@gmail.com</span>
 </div>
 <div class="invalid-feedback">
     @_invalidValueMessage
 </div>
 
 @code {
+
     private void OnInput(ChangeEventArgs e)
     {
-        _value = e.Value.ToString();
+        _value = e.Value;
         ValueValidation();
     }
 

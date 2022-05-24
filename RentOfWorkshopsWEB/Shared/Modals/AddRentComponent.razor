@@ -1,0 +1,51 @@
+﻿@using RentOfWorkshopsCore.DBContext
+@inherits ModalBaseComponent
+
+<div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
+    <div class="modal-dialog modal-dialog-scrollable" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title unselectable">
+                    Забронировать
+                </h5>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <label>Количество часов</label>
+                    <select class="form-control form-control-sm" @onchange=OnSelect>
+                        <option selected value="1">1 час</option>
+                        <option value="3">3 часа</option>
+                        <option value="6">6 часов</option>
+                        <option value="12">12 часов</option>
+                    </select>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="ReturnHours">Выбрать</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+@code {
+    [Parameter]
+    public EventCallback<int> RentCallBack { get; set; }
+
+    private int _rentHours;
+
+    private void OnSelect(ChangeEventArgs e)
+    {
+        _rentHours = Convert.ToInt32(e.Value);
+    }
+
+    private void ReturnHours()
+    {
+        RentCallBack.InvokeAsync(_rentHours);
+        Close();
+    }
+}

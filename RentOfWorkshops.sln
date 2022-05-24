@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentOfWorkShopsConsoleApp",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentOfWorkShopsWPF", "RentOfWorkShopsWPF\RentOfWorkShopsWPF.csproj", "{54062260-9CC1-4478-A203-F2E08FD99A06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentOfWorkshopAPI", "RentOfWorkshopAPI\RentOfWorkshopAPI.csproj", "{115AF602-03B3-4F4B-ACE0-0DF46DE6EBA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentOfWorkshopAPI", "RentOfWorkshopAPI\RentOfWorkshopAPI.csproj", "{115AF602-03B3-4F4B-ACE0-0DF46DE6EBA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

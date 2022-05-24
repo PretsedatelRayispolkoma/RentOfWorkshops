@@ -4,6 +4,7 @@
 @using RentOfWorkshopsWEB.Shared.Modals.Registration
 
 @inject UserContext UserContext
+@inject SpaceCollection SpaceCollection
 @inject NavigationManager NavigationManager
 
 <div class="nav">
@@ -56,11 +57,22 @@
     private void SignOutBtnClicked()
     {
         UserContext.SignOut();
+        SpaceCollection.UpdateList();
     }
 
     private void GetUser(User user)
     {
         UserContext.User = user;
+        var rent = SQLConnection.GetRents(UserContext.User.ClientId).Where(p => p.EndDate > DateTime.Now).FirstOrDefault();
+        if (rent == null)
+        {
+            UserContext.HasRent = false;
+        }
+        else
+        {
+            UserContext.HasRent = true;
+        }
+        SpaceCollection.UpdateList();
     }
 
     private void LogoClicked()

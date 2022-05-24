@@ -18,5 +18,17 @@ namespace RentOfWorkshopsCore.Validation
                         "! @ # $ % ^ & * ( ) + \n = } { ] [ > < ? / \\ ' ");
             }
         }
+
+        public static void DateValidation(DateTime dateTime)
+        {
+            if (DateTime.Now.Year - dateTime.Year < 18)
+                throw new Exception("Your age is less than eighteen");
+        }
+
+        public static void PhoneValidation(string number)
+        {
+            if (number[0] != '7' || number[1] != '9' || (number.Length != 11))
+                throw new Exception("Phone number example: 79xx'xxx'xx'xx");
+        }
     }
 }

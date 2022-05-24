@@ -7,27 +7,33 @@
     </label>
 </div>
 <div class="container">
-    <input type=@InputType class="@_inputClass form-control unselectable" @oninput=OnInput/>
+    <input type=date class="@_inputClass form-control unselectable" @oninput=OnInput/>
 </div>
 <div class="invalid-feedback">
     @_invalidValueMessage
 </div>
 
 @code {
+    [Parameter]
+    public EventCallback<DateTime> DateCallback { get; set; }
+
     private void OnInput(ChangeEventArgs e)
     {
-        _value = e.Value.ToString();
+        _value = e.Value;
         ValueValidation();
     }
 
     protected override void ValueValidation()
     {
+
+        _invalidValueMessage = "";
+        _inputClass = "";
         try
         {
             _invalidValueMessage = "";
             _inputClass = "";
-            Validation.StringValidation(_value.ToString());
-            ValueCallback.InvokeAsync(_value.ToString());
+            Validation.DateValidation(Convert.ToDateTime(_value));
+            DateCallback.InvokeAsync(Convert.ToDateTime(_value));
         }
         catch(Exception ex)
         {

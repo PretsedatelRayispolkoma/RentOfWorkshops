@@ -4,9 +4,17 @@
 @inject SpaceCollection SpaceCollection
 
 <div class="">
-    @foreach(var space in Spaces)
+    @if(Spaces.Count != 0)
     {
-        <SpaceItemComponent Space=space @key=space.GetHashCode()/>
+        foreach(var space in Spaces)
+        {
+            <SpaceItemComponent Space=space @key=space.GetHashCode()/>
+        }
+    }
+    else
+    {
+        <div style="display: flex; justify-content: center;">Ничего не найдено...</div>
+           
     }
 </div>
 

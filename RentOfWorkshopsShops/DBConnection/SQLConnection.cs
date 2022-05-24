@@ -123,6 +123,13 @@ namespace RentOfWorkshopsCore.DBConnection
             RentDB.SaveChanges();
         }
 
+        public static void AddUser(User user)
+        {
+            RentDB.User.Add(user);
+            RentDB.SaveChanges();
+
+        }
+
         public static Client AttachClient(Client client)
         {
             return RentDB.Client.Attach(client);
@@ -133,6 +140,17 @@ namespace RentOfWorkshopsCore.DBConnection
             RentDB.City.Add(city);
             RentDB.Street.Add(street);
             RentDB.House.Add(house);
+            RentDB.SaveChanges();
+        }
+
+        public static List<Rent> GetRents(int clientId)
+        {
+            return RentDB.Rent.Where(p => p.ClientId == clientId).ToList();
+        }
+
+        public static void AddRent(Rent rent)
+        {
+            RentDB.Rent.Add(rent);
             RentDB.SaveChanges();
         }
     }

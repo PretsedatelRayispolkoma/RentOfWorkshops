@@ -1,8 +1,11 @@
 ﻿@using RentOfWorkshopsCore.DBConnection
 @using RentOfWorkshopsCore.DBContext
+@using RentOfWorkshopsWEB.Shared.Modals
 
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
+@inject UserContext UserContext
+@inject SpaceCollection SpaceCollection
 
 <div class="space">
     <div/>
@@ -34,15 +37,34 @@
                <p class="space-item-info-numbers-p">@Space.Square кв. м</p>
             </div>
         </div>
-        <div class="make-order">
-            <button class="make-order-btn">Rent</button>
-        </div>
+        @if(UserContext.User.RoleId == 2)
+        {
+            if(!UserContext.HasRent)
+            {
+                <div class="make-order">
+                    <button class="make-order-btn" @onclick=OpenRentModal>Rent</button>
+                </div>
+            }          
+        }
+        else if(UserContext.User.RoleId == 1)
+        {
+
+        }
+        else
+        {
+            
+        }
     </div>
     <div/>
 </div>
+
+<AddRentComponent RentCallBack=CreateRent @ref=_rentComponent/>
+
 @code {
     [Parameter]
     public Space Space { get; set; }
+
+    private AddRentComponent _rentComponent;
 
     private byte[] _photoBytes;
 
@@ -50,9 +72,44 @@
     {
         if(Space.Picture != null)
             _photoBytes = Space.Picture;
+
+        var rent = SQLConnection.GetRents(UserContext.User.ClientId).Where(p => p.EndDate > DateTime.Now).FirstOrDefault();
+        if (rent == null)
+        {
+            SQLConnection.AttachSpace(Space);
+            Space.StatusId = 1;
+            SQLConnection.Save();
+        }
         return base.OnInitializedAsync();
     }
-    
+
+    private void OpenRentModal()
+    {
+        if (Space.StatusId != 2)
+        {
+            _rentComponent.Open();
+        }
+        else
+            return;
+    }
+
+    private void CreateRent(int rentHours)
+    {
+        Rent rent = new Rent();
+        rent.ClientId = UserContext.User.ClientId;
+        rent.SpaceId = Space.Id;
+        rent.RentHours = rentHours;
+        DateTime datetime = DateTime.Now;
+        rent.EndDate = datetime.AddHours(rentHours);
+        rent.TotalAmount = Space.AmountPerHour * rentHours;
+        SQLConnection.AttachSpace(Space);
+        Space.StatusId = 2;
+        SQLConnection.Save();
+        SQLConnection.AddRent(rent);
+        UserContext.HasRent = true;
+        SpaceCollection.UpdateList();
+    }
+
     private async void NavigateIntoSpace()
     {
         await JSRuntime.InvokeAsync<object>("open", $"space-info/{Space.Id}");
