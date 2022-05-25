@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace RentOfWorkshopsWEB.Shared.Modals.Registration
+namespace RentOfWorkshopsWEB.Shared.Modals.UpdateSpace
 {
-    public abstract class FieldComponent : ComponentBase
+    public abstract class FieldBase : ComponentBase
     {
         [Parameter]
         public EventCallback<string> ValueCallback { get; set; }
 
         [Parameter]
+        public string Value { get; set; }
+
+        [Parameter]
         public string Title { get; set; }
-        
+
         [Parameter]
         public string InputType { get; set; }
 

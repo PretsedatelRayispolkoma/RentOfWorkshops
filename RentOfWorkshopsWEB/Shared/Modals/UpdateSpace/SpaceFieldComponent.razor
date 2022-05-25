@@ -1,0 +1,38 @@
+﻿@using RentOfWorkshopsCore.Validation
+@inherits FieldBase
+
+<div class="container" margin="20">
+    <label class="unselectable">
+        @Title
+    </label>
+</div>
+<div class="container">
+    <input type=@InputType class="@_inputClass form-control unselectable" @oninput=OnInput/>
+</div>
+<div class="invalid-feedback">
+    @_invalidValueMessage
+</div>
+
+@code {
+    private void OnInput(ChangeEventArgs e)
+    {
+        _value = e.Value.ToString();
+        ValueValidation();
+    }
+
+    protected override void ValueValidation()
+    {
+        try
+        {
+            _invalidValueMessage = "";
+            _inputClass = "";
+            Validation.StringValidation(_value.ToString());
+            ValueCallback.InvokeAsync(_value.ToString());
+        }
+        catch(Exception ex)
+        {
+            _inputClass = "is-invalid";
+            _invalidValueMessage = ex.Message;
+        }
+    }
+}

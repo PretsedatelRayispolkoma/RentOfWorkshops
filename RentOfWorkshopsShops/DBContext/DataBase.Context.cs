@@ -31,6 +31,7 @@ namespace RentOfWorkshopsCore.DBContext
         public virtual DbSet<House> House { get; set; }
         public virtual DbSet<Rent> Rent { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<SecondaryPictures> SecondaryPictures { get; set; }
         public virtual DbSet<Space> Space { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Street> Street { get; set; }
@@ -38,6 +39,5 @@ namespace RentOfWorkshopsCore.DBContext
         public virtual DbSet<TypeOfEquipment> TypeOfEquipment { get; set; }
         public virtual DbSet<TypeOfSpace> TypeOfSpace { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<SecondaryPictures> SecondaryPictures { get; set; }
     }
 }

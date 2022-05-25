@@ -1,6 +1,7 @@
 ﻿@using RentOfWorkshopsCore.DBConnection
 @using RentOfWorkshopsCore.DBContext
 @using RentOfWorkshopsWEB.Shared.Modals
+@using RentOfWorkshopsWEB.Shared.Modals.UpdateSpace
 
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
@@ -50,10 +51,10 @@
         {
             <div class="update-remove-btn">
                 <div>
-                    <i class="fa-solid fa-pen"></i>
+                    <i class="fa-solid fa-pen" @onclick=OpenUpdateSpace></i>
                 </div>
                 <div>
-                    <i class="fa-solid fa-trash"></i>
+                    <i class="fa-solid fa-trash" @onclick=DeleteButtonClicked></i>
                 </div>               
             </div>
         }
@@ -66,12 +67,16 @@
 </div>
 
 <AddRentComponent RentCallBack=CreateRent @ref=_rentComponent/>
+<DeleteModalComponent DeleteCallback=Delete @ref=_deleteModal/>
+<UpdateSpaceComponent CurrentSpace=Space @ref=_updateSpace/>
 
 @code {
     [Parameter]
     public Space Space { get; set; }
 
     private AddRentComponent _rentComponent;
+    private DeleteModalComponent _deleteModal;
+    private UpdateSpaceComponent _updateSpace;
 
     private byte[] _photoBytes;
 
@@ -120,5 +125,24 @@
     private async void NavigateIntoSpace()
     {
         await JSRuntime.InvokeAsync<object>("open", $"space-info/{Space.Id}");
+    }
+
+    private void DeleteButtonClicked()
+    {
+        _deleteModal.Open();
+    }
+
+    private void OpenUpdateSpace()
+    {
+        _updateSpace.Open();
+    }
+
+    private void Delete(bool toDelete)
+    {
+        if(toDelete && SpaceCollection.SpaceList.Contains(Space))
+        {
+            SQLConnection.DeleteSpace(Space.Id);
+            SpaceCollection.UpdateList();
+        }
     }
 }

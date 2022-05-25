@@ -1,0 +1,40 @@
+﻿@using RentOfWorkshopsCore.DBConnection
+@using RentOfWorkshopsCore.DBContext
+@inherits Modals.ModalBaseComponent
+
+@inject SpaceCollection SpaceCollection
+
+<div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
+    <div class="modal-dialog modal-dialog-scrollable" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title unselectable">
+                    Удалить помещение
+                </h5>
+            </div>
+            <div class="modal-body">
+                Данное помещение будет удалено
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="Delete">Удалить</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+
+@code {
+    [Parameter]
+    public EventCallback<bool> DeleteCallback { get; set; }
+
+    private void Delete()
+    {
+        DeleteCallback.InvokeAsync(true);
+        Close();
+    }
+}

@@ -65,7 +65,7 @@ namespace RentOfWorkshopsWEB
                     break;
             }
 
-            _spaceList = _spaceList.Where(p => p.StatusId == 1).ToList();
+            _spaceList = _spaceList.Where(p => p.StatusId == 1 && p.IsDeleted == false).ToList();
 
             StateChanged?.Invoke(_spaceList);
 

@@ -1,0 +1,66 @@
+﻿@using RentOfWorkshopsCore.DBConnection
+@using RentOfWorkshopsCore.DBContext
+@using RentOfWorkshopsWEB.Shared.Modals.Registration
+
+@inherits Modals.ModalBaseComponent
+
+@inject SpaceCollection SpaceCollection
+
+<div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
+    <div class="modal-dialog modal-dialog-scrollable" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title unselectable">
+                    Удалить помещение
+                </h5>
+            </div>
+            <div class="modal-body">
+                <SpaceFieldComponent Title="Тип помещения" Value="@CurrentSpace.TypeOfSpace.Name"/>
+                <SpaceFieldComponent Title="Город" Value="@CurrentSpace.House.Street.City.Name"/>
+                <SpaceFieldComponent Title="Улица" Value="@CurrentSpace.House.Street.Name"/>
+                <SpaceFieldComponent Title="Дом" Value="@CurrentSpace.House.Number"/>
+@*                <SpaceFieldComponent Title="Цена/ч" InputType=number Value="@CurrentSpace.AmountPerHour"/>
+                <SpaceFieldComponent Title="Площадь" InputType=number Value="@CurrentSpace.Square"/>*@
+                <SpaceFieldComponent Title="Описание" Value="@CurrentSpace.Description"/>
+                <div class="add-image">
+                    @if(_photoBytes != null)
+                    {
+                        <img class="space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
+                    }
+                    <InputFile OnChange="AddImage" accept="image/*"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Удалить</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+
+@code {
+    [Parameter]
+    public Space CurrentSpace  { get; set; }
+
+    private byte[] _photoBytes;
+
+    protected override Task OnInitializedAsync()
+    {
+        if(CurrentSpace.Picture != null)
+            _photoBytes = CurrentSpace.Picture;
+        return base.OnInitializedAsync();
+    }
+
+    private async Task AddImage(InputFileChangeEventArgs e)
+    {
+        MemoryStream ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        var bytes = ms.ToArray();
+
+    }
+}

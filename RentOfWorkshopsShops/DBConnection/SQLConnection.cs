@@ -55,7 +55,8 @@ namespace RentOfWorkshopsCore.DBConnection
         public static void DeleteSpace(int id)
         {
             var currentSpace = RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
-            RentDB.Space.Remove(currentSpace);
+            RentDB.Space.Attach(currentSpace);
+            currentSpace.IsDeleted = true;
             RentDB.SaveChanges();
         }
 
