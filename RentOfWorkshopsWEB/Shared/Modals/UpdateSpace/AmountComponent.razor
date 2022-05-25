@@ -1,4 +1,5 @@
 ﻿@using RentOfWorkshopsCore.Validation
+@using System.ComponentModel
 @inherits FieldBase
 
 <div class="container" margin="20">
@@ -7,7 +8,7 @@
     </label>
 </div>
 <div class="container">
-    <input type=@InputType class="@_inputClass form-control unselectable" value="@Value.ToString()" @oninput=OnInput/>
+    <input class="@_inputClass form-control unselectable" value="@Value" @oninput=OnInput/>
 </div>
 <div class="invalid-feedback">
     @_invalidValueMessage
@@ -22,17 +23,21 @@
 
     protected override void ValueValidation()
     {
-        try
+        TypeConverter typeConverter = TypeDescriptor.GetConverter(typeof(decimal));
+        _invalidValueMessage = "";
+        _inputClass = "";
+
+        if(typeConverter.IsValid(_value))
         {
             _invalidValueMessage = "";
             _inputClass = "";
-            Validation.StringValidation(_value.ToString());
             ValueCallback.InvokeAsync(_value.ToString());
         }
-        catch(Exception ex)
+        else
         {
             _inputClass = "is-invalid";
-            _invalidValueMessage = ex.Message;
+            _invalidValueMessage = "Incorrect input";
         }
     }
 }
+

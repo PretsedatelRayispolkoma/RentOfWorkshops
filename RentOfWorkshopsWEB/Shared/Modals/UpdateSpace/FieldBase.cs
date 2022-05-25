@@ -8,7 +8,7 @@ namespace RentOfWorkshopsWEB.Shared.Modals.UpdateSpace
         public EventCallback<string> ValueCallback { get; set; }
 
         [Parameter]
-        public string Value { get; set; }
+        public object Value { get; set; }
 
         [Parameter]
         public string Title { get; set; }

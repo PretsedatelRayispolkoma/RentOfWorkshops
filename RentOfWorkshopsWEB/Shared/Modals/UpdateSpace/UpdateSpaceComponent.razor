@@ -18,10 +18,12 @@
                 <SpaceFieldComponent Title="Тип помещения" Value="@CurrentSpace.TypeOfSpace.Name"/>
                 <SpaceFieldComponent Title="Город" Value="@CurrentSpace.House.Street.City.Name"/>
                 <SpaceFieldComponent Title="Улица" Value="@CurrentSpace.House.Street.Name"/>
-                <SpaceFieldComponent Title="Дом" Value="@CurrentSpace.House.Number"/>
-@*                <SpaceFieldComponent Title="Цена/ч" InputType=number Value="@CurrentSpace.AmountPerHour"/>
-                <SpaceFieldComponent Title="Площадь" InputType=number Value="@CurrentSpace.Square"/>*@
-                <SpaceFieldComponent Title="Описание" Value="@CurrentSpace.Description"/>
+                <SquareComponent Title="Дом" Value="@CurrentSpace.House.Number"/>
+                <AmountComponent Title="Цена/ч" Value="@CurrentSpace.AmountPerHour"/>
+                <SquareComponent Title="Площадь"Value="@CurrentSpace.Square"/>
+                <div class="mb-3">
+                    <textarea class="form-control">@_description</textarea>
+                </div>
                 <div class="add-image">
                     @if(_photoBytes != null)
                     {
@@ -31,7 +33,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Удалить</button>
+                <button type="button" class="btn btn-primary">Обновить</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
             </div>
         </div>
@@ -48,11 +50,15 @@
     public Space CurrentSpace  { get; set; }
 
     private byte[] _photoBytes;
+    private string _description;
 
     protected override Task OnInitializedAsync()
     {
         if(CurrentSpace.Picture != null)
             _photoBytes = CurrentSpace.Picture;
+
+        if (!String.IsNullOrEmpty(CurrentSpace.Description))
+            _description = CurrentSpace.Description;
         return base.OnInitializedAsync();
     }
 
@@ -60,7 +66,7 @@
     {
         MemoryStream ms = new MemoryStream();
         await e.File.OpenReadStream().CopyToAsync(ms);
-        var bytes = ms.ToArray();
-
+        _photoBytes = ms.ToArray();
+        await InvokeAsync(StateHasChanged);
     }
 }
