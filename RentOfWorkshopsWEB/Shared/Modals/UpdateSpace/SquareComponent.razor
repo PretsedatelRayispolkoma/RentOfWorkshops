@@ -15,9 +15,12 @@
 </div>
 
 @code {
+    [Parameter]
+    public EventCallback<int> SquareCB { get; set; }
+
     private void OnInput(ChangeEventArgs e)
     {
-        _value = e.Value.ToString();
+        _value = e.Value;
         ValueValidation();
     }
 
@@ -31,7 +34,15 @@
         {
             _invalidValueMessage = "";
             _inputClass = "";
-            ValueCallback.InvokeAsync(_value.ToString());
+            try
+            {
+                SquareCB.InvokeAsync(Convert.ToInt32(_value));
+            }
+            catch(Exception ex)
+            {
+                _inputClass = "is-invalid";
+                _invalidValueMessage = ex.Message;
+            }
         }
         else
         {

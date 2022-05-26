@@ -11,19 +11,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title unselectable">
-                    Удалить помещение
+                    Обновить данные
                 </h5>
             </div>
             <div class="modal-body">
-                <SpaceFieldComponent Title="Тип помещения" Value="@CurrentSpace.TypeOfSpace.Name"/>
-                <SpaceFieldComponent Title="Город" Value="@CurrentSpace.House.Street.City.Name"/>
-                <SpaceFieldComponent Title="Улица" Value="@CurrentSpace.House.Street.Name"/>
-                <SquareComponent Title="Дом" Value="@CurrentSpace.House.Number"/>
-                <AmountComponent Title="Цена/ч" Value="@CurrentSpace.AmountPerHour"/>
-                <SquareComponent Title="Площадь"Value="@CurrentSpace.Square"/>
-                <div class="mb-3">
-                    <textarea class="form-control">@_description</textarea>
-                </div>
+
+                <AmountComponent Title="Цена/ч" Value="@_amount" AmountCB=GetAmount/>
+                <SquareComponent Title="Площадь" Value="@_square" SquareCB=GetSquare/>
+                <textarea class="form-control" @bind="_description" @bind:event="oninput"></textarea>
+                
                 <div class="add-image">
                     @if(_photoBytes != null)
                     {
@@ -33,7 +29,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Обновить</button>
+                <button type="button" class="btn btn-primary" @onclick=Update>Обновить</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
             </div>
         </div>
@@ -49,6 +45,12 @@
     [Parameter]
     public Space CurrentSpace  { get; set; }
 
+    private int _cityId = 0;
+    private int _streetId = 0;
+    private int _houseId = 0;
+
+    private decimal _amount;
+    private int _square;
     private byte[] _photoBytes;
     private string _description;
 
@@ -59,6 +61,10 @@
 
         if (!String.IsNullOrEmpty(CurrentSpace.Description))
             _description = CurrentSpace.Description;
+
+        _amount = CurrentSpace.AmountPerHour;
+        _square = CurrentSpace.Square;
+
         return base.OnInitializedAsync();
     }
 
@@ -68,5 +74,42 @@
         await e.File.OpenReadStream().CopyToAsync(ms);
         _photoBytes = ms.ToArray();
         await InvokeAsync(StateHasChanged);
+    }
+
+    private void GetAmount(decimal amount)
+    {
+        _amount = Convert.ToDecimal(amount);
+    }
+
+    private void GetSquare(int square)
+    {
+        _square = Convert.ToInt32(square);
+    }
+
+    private void Update()
+    {
+        SQLConnection.AttachSpace(CurrentSpace);
+        CurrentSpace.AmountPerHour = _amount;
+        CurrentSpace.Square = _square;
+        CurrentSpace.Description = _description;
+        CurrentSpace.Picture = _photoBytes;
+
+        if(!(_amount <= 0) && !(_square <= 0))
+        {
+            try
+            {
+                SQLConnection.Save();
+                Close();
+                SpaceCollection.UpdateList();
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+        else
+        {
+            
+        }
     }
 }

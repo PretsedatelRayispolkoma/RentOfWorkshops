@@ -3,7 +3,14 @@
 
 <div class="container" margin="20">
     <label class="unselectable">
-        @Title
+        @if(Title == null)
+        {
+            <p>Описание</p>
+        }
+        else
+        {
+            @Title
+        }
     </label>
 </div>
 <div class="container">

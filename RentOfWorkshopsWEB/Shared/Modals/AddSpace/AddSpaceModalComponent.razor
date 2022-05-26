@@ -1,0 +1,178 @@
+﻿@using RentOfWorkshopsCore.DBConnection
+@using RentOfWorkshopsCore.DBContext
+@using RentOfWorkshopsWEB.Shared.Modals.Registration
+@using System.ComponentModel
+
+@inherits Modals.ModalBaseComponent
+
+@inject SpaceCollection SpaceCollection
+
+<div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
+    <div class="modal-dialog modal-dialog-scrollable" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title unselectable">
+                    Добавить помещение
+                </h5>
+            </div>
+            <div class="modal-body">
+                <select class="form-control form-control-sm" @bind="_cityId">
+                    @foreach (var city in SQLConnection.GetAllCities())
+                    {
+                        <option value=@city.Id>@city.Name</option>
+                    }
+                </select>
+                @if(_cityId != 0)
+                {
+                    <select class="form-control form-control-sm" @bind="_streetId">
+                        @foreach(var street in SQLConnection.GetStreet(_cityId))
+                        {
+                            <option value=@street.Id>@street.Name</option>
+                        }
+                    </select>
+                    @if(_streetId != 0)
+                    {
+                        <select class="form-control form-control-sm" @bind="_houseId">
+                            @foreach(var house in SQLConnection.GetHouses(_streetId))
+                            {
+                                <option value=@house.Id @key=house.GetHashCode()>@house.Number</option>                              
+                            }
+                        </select>
+                    }   
+                }
+
+                <div class="container" margin="20">
+                    <label class="unselectable">
+                        Цена/час
+                    </label>
+                </div>
+                <div class="container">
+                    <input class="@_amountClass form-control unselectable" @onchange=OnAmountChange/>
+                </div>
+                <div class="invalid-feedback">
+                    Incorrect input
+                </div>
+
+                <div class="container" margin="20">
+                    <label class="unselectable">
+                        Площадь
+                    </label>
+                </div>
+                <div class="container">
+                    <input class="@_squareClass form-control unselectable" @onchange=OnSquareChange/>
+                </div>
+                <div class="invalid-feedback">
+                    IncorrectInput
+                </div>
+
+                <textarea class="form-control" @bind="_description" @bind:event="oninput"></textarea>
+
+                <div class="add-image">
+                    @if(_photoBytes != null)
+                    {
+                        <img class="space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(_photoBytes))"/>
+                    }
+                    <InputFile OnChange="AddImage" accept="image/*"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick=Add>Добавить</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+@code {
+    private string _amountClass = "";
+    private string _squareClass = "";
+
+    private int _cityId = 0;
+    private int _streetId = 0;
+    private int _houseId = 0;
+
+    private decimal _amount;
+    private int _square;
+    private byte[] _photoBytes;
+    private string _description;
+
+    private async Task AddImage(InputFileChangeEventArgs e)
+    {
+        MemoryStream ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        _photoBytes = ms.ToArray();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void OnAmountChange(ChangeEventArgs e)
+    {
+        TypeConverter typeConverter = TypeDescriptor.GetConverter(typeof(decimal));
+        if(typeConverter.IsValid(e.Value))
+        {
+            _amountClass = "";
+            _amount = Convert.ToDecimal(e.Value);
+        }
+        else
+        {
+            _amountClass = "is-invalid";
+        }
+    }
+
+    private void OnSquareChange(ChangeEventArgs e)
+    {
+        TypeConverter typeConverter = TypeDescriptor.GetConverter(typeof(int));
+        if(typeConverter.IsValid(e.Value))
+        {
+            _squareClass = "";
+            _square = Convert.ToInt32(e.Value);
+        }
+        else
+        {
+            _squareClass = "is-invalid";
+        }
+    }
+
+    private void Add()
+    {
+        Space space = new Space();
+        space.TypeOfSpaceId = SpaceCollection.TypeOfSpaceId;
+        space.HouseId = _houseId;
+        space.AmountPerHour = _amount;
+        space.Square = _square;
+        space.StatusId = 1;
+        space.IsDeleted = false;
+        space.Description = _description;
+        space.Picture = _photoBytes;
+
+        if(!(space.TypeOfSpaceId <= 0) && !(space.HouseId <= 0) && !(space.AmountPerHour <= 0)
+            && !(space.Square <= 0) && !(space.StatusId <= 0))
+        {
+            try
+            {
+                SQLConnection.AddSpace(space);
+
+                _cityId = 0;
+                _streetId = 0;
+                _houseId = 0;
+                _amount = 0;
+                _square = 0;
+                _photoBytes = null;
+                _description = "";
+
+                Close();
+            }
+            catch(Exception ex)
+            {
+
+            } 
+        }
+        else
+        {
+            
+        }
+    }
+}

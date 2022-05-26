@@ -1,0 +1,33 @@
+﻿@using RentOfWorkshopsWEB.Shared.Modals
+@inherits ModalBaseComponent
+
+<div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
+    <div class="modal-dialog modal-dialog-scrollable" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title unselectable">
+                    @Title
+                </h5>
+            </div>
+            <div class="modal-body">
+                @Message
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Message { get; set; }
+}

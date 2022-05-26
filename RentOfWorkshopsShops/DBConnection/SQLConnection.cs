@@ -52,6 +52,16 @@ namespace RentOfWorkshopsCore.DBConnection
             RentDB.SaveChanges();
         }
 
+        public static List<Street> GetStreet(int cityId)
+        {
+            return RentDB.Street.Where(p => p.CityId == cityId).ToList();
+        }
+
+        public static List<House> GetHouses(int streetId)
+        {
+            return RentDB.House.Where(p => p.StreetId == streetId).ToList();
+        }
+
         public static void DeleteSpace(int id)
         {
             var currentSpace = RentDB.Space.Where(p => p.Id == id).FirstOrDefault();
