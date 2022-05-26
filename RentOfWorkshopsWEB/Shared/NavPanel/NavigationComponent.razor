@@ -24,12 +24,12 @@
         <div class="nav-buttons">
             @if(UserContext.User.RoleId == 1 || UserContext.User.RoleId == 2)
             {
-                <button class="nav-button" @onclick=SignOutBtnClicked>Sign out</button>
+                <button class="nav-button-regist" @onclick=SignOutBtnClicked>Выйти</button>
             }
             else
             {
-                <button class="nav-button" @onclick=SignInBtnClicked>Sign in</button>
-                <button class="nav-button" @onclick=SignUpBtnClicked>Sign up</button>
+                <button class="nav-button" @onclick=SignInBtnClicked>Войти</button>
+                <button class="nav-button-regist" @onclick=SignUpBtnClicked>Зарегистрироваться</button>
             }
         </div>
     </div>

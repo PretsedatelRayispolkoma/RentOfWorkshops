@@ -1,0 +1,162 @@
+﻿@using RentOfWorkshopsCore.DBConnection
+@using RentOfWorkshopsCore.DBContext
+@using RentOfWorkshopsWEB.Shared.Modals
+@inherits ModalBaseComponent
+
+@inject SpaceCollection SpaceCollection
+@inject UserContext UserContext
+
+<div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title unselectable">
+                    @CurrentSpace.TypeOfSpace.Name
+                </h5>
+            </div>
+            <div class="modal-body" style="padding: 20px; font-size: small;">
+                <div class="current-space-maininfo">
+                    <div class="current-space-image-div mb-3">
+                        @if(CurrentSpace.Picture != null)
+                        {
+                            <img class="current-space-image" src="data:image/bmp;base64,@(Convert.ToBase64String(CurrentSpace.Picture))"/>
+                        }
+                        else
+                        {
+                            <img class="space-image" src="images/noimage.jpg"/>
+                        }
+                    </div>
+                    <div class="current-space-maininfo-other">
+                        <div class="mb-3 current-other">
+                            <div>
+                                <label class="col-form-label">Адрес:</label>
+                            </div>
+                            <div>
+                                <p class="col-form-label">@CurrentSpace.House.Street.City.Name, @CurrentSpace.House.Street.Name, @CurrentSpace.House.Number</p>
+                            </div>
+                        </div>
+                        <div class="mb-3 current-other">
+                            <div>
+                                <label class="col-form-label">Цена/ч:</label>
+                            </div>
+                            <div>
+                                <p class="col-form-label">@CurrentSpace.AmountPerHour руб/ч</p>
+                            </div>
+                        </div>
+                        <div class="mb-3 current-other">
+                            <div>
+                                <label class="col-form-label">Площадь:</label>
+                            </div>
+                            <div>
+                                <p class="col-form-label">@CurrentSpace.Square кв.м</p>
+                            </div>
+                        </div>           
+                    </div>                   
+                </div>
+                
+                <div class="mb-3">
+                    <label>Описание</label>
+                    <p class="col-form-label">@CurrentSpace.Description</p>
+                </div>
+                <div class="mb-3">
+                    <label>Оборудование</label>
+                    <ul>
+                        @foreach(var item in CurrentSpace.TypeOfSpace.TypeOfEquipment)
+                        {
+                            foreach (var equip in item.Equipment)
+                            {
+                                <li class="col-form-label">@equip.Name</li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <label>Количество часов</label>
+                    <select class="form-control form-control-sm" @onchange=OnChagne>
+                        <option value=0>---Выберите время---</option>
+                        <option value=1>1 час</option>
+                        <option value=3>3 часа</option>
+                        <option value=6>6 часов</option>
+                        <option value=12>12 часов</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>
+                        Итого
+                    </label>
+                    <p class="col-form-label">@_amount рублей</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="CreateRent">Арендовать</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+
+@code {
+    [Parameter]
+    public Space CurrentSpace { get; set; }
+
+    private int _time = 0;
+    private decimal _amount;
+
+    private void OnChagne(ChangeEventArgs e)
+    {
+        _time = Convert.ToInt32(e.Value);
+        _amount = CurrentSpace.AmountPerHour * _time;
+    }
+
+    private void CreateRent()
+    {
+        int rentHours;
+        Rent rent = new Rent();
+        switch(_time)
+        {
+            case 1: 
+                rentHours = 1; 
+                _amount = CurrentSpace.AmountPerHour * rentHours;
+                break;
+            case 3: 
+                rentHours = 3; 
+                _amount = CurrentSpace.AmountPerHour * rentHours;
+                break;
+            case 6: 
+                rentHours = 6; 
+                _amount = CurrentSpace.AmountPerHour * rentHours;
+                break;
+            case 12:
+                rentHours = 12;
+                _amount = CurrentSpace.AmountPerHour * rentHours;
+                break;
+            default: return;
+        }
+
+        rent.ClientId = UserContext.User.ClientId;
+        rent.RentHours = rentHours;
+        rent.SpaceId = CurrentSpace.Id;
+        DateTime datetime = DateTime.Now;
+        rent.EndDate = datetime.AddHours(rentHours);
+        rent.TotalAmount = CurrentSpace.AmountPerHour * rentHours;
+
+        SQLConnection.AttachSpace(CurrentSpace);
+        CurrentSpace.StatusId = 2;
+
+        try
+        {
+            SQLConnection.AddRent(rent);
+            Close();
+            SpaceCollection.UpdateList();
+        }
+        catch(Exception ex)
+        {
+            
+        }
+    }
+}

@@ -16,28 +16,37 @@
                 </h5>
             </div>
             <div class="modal-body">
-                <select class="form-control form-control-sm" @bind="_cityId">
-                    @foreach (var city in SQLConnection.GetAllCities())
-                    {
-                        <option value=@city.Id>@city.Name</option>
-                    }
-                </select>
-                @if(_cityId != 0)
-                {
-                    <select class="form-control form-control-sm" @bind="_streetId">
-                        @foreach(var street in SQLConnection.GetStreet(_cityId))
+                <div class="mb-3">
+                    <label class="col-form-label">Город</label>
+                    <select class="form-control form-control-sm" @bind="_cityId">
+                        @foreach (var city in SQLConnection.GetAllCities())
                         {
-                            <option value=@street.Id>@street.Name</option>
+                            <option value=@city.Id>@city.Name</option>
                         }
                     </select>
-                    @if(_streetId != 0)
-                    {
-                        <select class="form-control form-control-sm" @bind="_houseId">
-                            @foreach(var house in SQLConnection.GetHouses(_streetId))
+                </div>
+                @if(_cityId != 0)
+                {
+                    <div class="mb-3">
+                        <label class="col-form-label">Улица</label>
+                        <select class="form-control form-control-sm" @bind="_streetId">
+                            @foreach(var street in SQLConnection.GetStreet(_cityId))
                             {
-                                <option value=@house.Id @key=house.GetHashCode()>@house.Number</option>                              
+                                <option value=@street.Id>@street.Name</option>
                             }
                         </select>
+                    </div>
+                    @if(_streetId != 0)
+                    {
+                        <div class="mb-3">
+                            <label class="col-form-label">Дом</label>
+                            <select class="form-control form-control-sm" @bind="_houseId">
+                                @foreach(var house in SQLConnection.GetHouses(_streetId))
+                                {
+                                    <option value=@house.Id @key=house.GetHashCode()>@house.Number</option>                              
+                                }
+                            </select>
+                        </div>
                     }   
                 }
 
@@ -64,8 +73,11 @@
                 <div class="invalid-feedback">
                     IncorrectInput
                 </div>
-
-                <textarea class="form-control" @bind="_description" @bind:event="oninput"></textarea>
+                
+                <div class="mb-3">
+                    <label class="col-form-label">Описание</label>
+                    <textarea class="form-control" @bind="_description" @bind:event="oninput"></textarea>
+                </div>
 
                 <div class="add-image">
                     @if(_photoBytes != null)

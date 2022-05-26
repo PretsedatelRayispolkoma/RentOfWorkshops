@@ -52,7 +52,7 @@ a, .btn-link {
 
 .space{
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr; 
     justify-content: center;
 }
 
@@ -64,15 +64,14 @@ a, .btn-link {
 
 .space-item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr ;
     gap: 20px; 
     justify-content: start;
     align-items: center;
     grid-auto-columns: minmax(0px, auto);
     font-size: small;
-    border: solid;
+    border-top: solid;
     border-color: silver;
-    border-radius: 4px 4px;
     border-width: 1px 2px 1px 2px;
     box-shadow:none;
     transition: box-shadow .2s;
@@ -173,7 +172,7 @@ button.make-order-btn:hover {
 }
 
 .logo {
-    width: 100px;
+    width: 150px;
 }
 
 .nav-divisions {
@@ -215,6 +214,24 @@ button.make-order-btn:hover {
     transition: background-color .2s, border-color .4s;
 }
 
+.nav-button-regist {
+    margin: 10px;
+    border: solid;
+    border-width: 1px;
+    border-color: transparent;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 135px;
+    height: 30px;
+    font: normal small Arial;
+    color: #fde910;
+    transition: color .2s;
+}
+
+    .nav-button-regist:hover {
+        color: #fcf172;
+    }
+
     .nav-button:hover {
         background-color: #fcf172;
         border-color: #fde910;
@@ -251,8 +268,6 @@ input.search{
     grid-template-columns: 1fr 1fr 1fr;
     justify-self: center;
     gap: 0px 100px;
-    margin: 20px;
-
 }
 
 .is-busy{
@@ -263,6 +278,7 @@ input.search{
 
 .choose-city{
     justify-self: end;
+    align-self: end;
     min-width: 100px;
 }
 
@@ -289,6 +305,12 @@ input.search{
 
 .order-by{
     font-size: small;
+    min-width: 200px;
+}
+
+input.order-by {
+    font-size: small;
+    min-width: 200px;
 }
 
 .profile-img{
@@ -303,3 +325,43 @@ input.search{
     gap: 5px;
 }
 
+.amount-square{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.current-space-image{
+    width: 400px;
+}
+
+.current-space-image-div{
+    display: flex;
+    justify-content: center;
+}
+
+.current-space-maininfo{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-content: center;
+    justify-content: center;
+}
+
+.current-space-maininfo-other{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-other{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    background-color: #e3cced;
+}

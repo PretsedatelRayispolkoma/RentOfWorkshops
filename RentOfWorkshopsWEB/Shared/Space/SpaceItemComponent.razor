@@ -40,7 +40,6 @@
                    <p class="space-item-info-numbers-p">@Space.Square кв. м</p>
                 </div>
             </div>
-            <div/>
         </div>   
     </ContextMenuTrigger>
     <div/>
@@ -100,7 +99,8 @@
             _spaceInfo.Open();
         else
         {
-            _errorModal.Title = "Для просмотра необходимо войти в систему";
+            _errorModal.Title = "Упс..";
+            _errorModal.Message = "Для просмотра необходимо войти в систему";
             _errorModal.Open();
         }
     }
