@@ -14,7 +14,7 @@ namespace RentOfWorkshopsCore.Validation
             foreach (var chr in invalidChars)
             {
                 if (value.Contains(chr))
-                    throw new Exception("Value contains one of those signs: \n" +
+                    throw new InvalidOperationException("Value contains one of those signs: \n" +
                         "! @ # $ % ^ & * ( ) + \n = } { ] [ > < ? / \\ ' ");
             }
         }
@@ -22,13 +22,13 @@ namespace RentOfWorkshopsCore.Validation
         public static void DateValidation(DateTime dateTime)
         {
             if (DateTime.Now.Year - dateTime.Year < 18)
-                throw new Exception("Your age is less than eighteen");
+                throw new InvalidOperationException("Your age is less than eighteen");
         }
 
         public static void PhoneValidation(string number)
         {
             if (number[0] != '7' || number[1] != '9' || (number.Length != 11))
-                throw new Exception("Phone number example: 79xx'xxx'xx'xx");
+                throw new InvalidOperationException("Phone number example: 79xx'xxx'xx'xx");
         }
     }
 }

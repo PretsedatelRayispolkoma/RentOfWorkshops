@@ -72,7 +72,7 @@ namespace RentOfWorkshopsCore.DBConnection
 
         public static void Update(int id, Space space)
         {
-            var newSpace = RentDB.Space.FirstOrDefault<Space>(p => p.Id == id);
+            var newSpace = RentDB.Space.FirstOrDefault(p => p.Id == id);
             newSpace = space;
             RentDB.SaveChanges();
         }

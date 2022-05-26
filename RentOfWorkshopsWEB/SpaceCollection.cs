@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace RentOfWorkshopsWEB
 {
-    internal class SpaceCollection
+    public class SpaceCollection
     {
         private List<Space> _spaceList = new List<Space>();
 
-        internal List<Space> SpaceList 
+        public List<Space> SpaceList 
         {
             get
             {
@@ -24,17 +24,17 @@ namespace RentOfWorkshopsWEB
             UpdateList();
         }
 
-        internal bool ShowAll { get; set; } = false;
+        public bool ShowAll { get; set; } = false;
 
-        internal int OrderBy { get; set; } = 1;
+        public int OrderBy { get; set; } = 1;
 
-        internal int TypeOfSpaceId { get; set; } = 2;
+        public int TypeOfSpaceId { get; set; } = 2;
 
-        internal string SearchString { get; set; }
+        public string SearchString { get; set; }
 
-        internal City City { get; set; }
+        public City City { get; set; }
 
-        internal ValueTask UpdateList()
+        public ValueTask UpdateList()
         {
             _spaceList = SQLConnection.GetAllSpaces().ToList();
 
@@ -72,6 +72,6 @@ namespace RentOfWorkshopsWEB
             return new ValueTask();
         }
 
-        internal event Action<List<Space>> StateChanged;
+        public event Action<List<Space>> StateChanged;
     }
 }
