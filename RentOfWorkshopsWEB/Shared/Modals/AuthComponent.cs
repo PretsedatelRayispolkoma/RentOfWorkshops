@@ -72,7 +72,7 @@ namespace RentOfWorkshopsWEB.Shared.Modals
 
             builder.OpenElement(++seq, "h5");
             builder.AddAttribute(++seq, "class", "modal-title unselectable");
-            builder.AddContent(++seq, "Sign in");
+            builder.AddContent(++seq, "Войти");
             builder.CloseElement();
             builder.CloseElement();
 
@@ -85,7 +85,7 @@ namespace RentOfWorkshopsWEB.Shared.Modals
 
             builder.OpenElement(++seq, "label");
             builder.AddAttribute(++seq, "class", "unselectable");
-            builder.AddContent(++seq, "Login");
+            builder.AddContent(++seq, "Логин");
             builder.CloseElement();
             builder.CloseElement();
 
@@ -105,7 +105,7 @@ namespace RentOfWorkshopsWEB.Shared.Modals
 
             builder.OpenElement(++seq, "label");
             builder.AddAttribute(++seq, "class", "unselectable");
-            builder.AddContent(++seq, "Password");
+            builder.AddContent(++seq, "Пароль");
             builder.CloseElement();
 
             builder.OpenElement(++seq, "input");
@@ -130,7 +130,7 @@ namespace RentOfWorkshopsWEB.Shared.Modals
             builder.AddAttribute(++seq, "type", "button");
             builder.AddAttribute(++seq, "class", "btn btn-primary");
             builder.AddAttribute(++seq, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, Authorize));
-            builder.AddContent(++seq, "Sign in");
+            builder.AddContent(++seq, "Войти");
             builder.CloseElement();
 
             builder.OpenElement(++seq, "button");
@@ -138,7 +138,7 @@ namespace RentOfWorkshopsWEB.Shared.Modals
             builder.AddAttribute(++seq, "class", "btn btn-secondary");
             builder.AddAttribute(++seq, "data-dismiss", "modal");
             builder.AddAttribute(++seq, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, Close));
-            builder.AddContent(++seq, "Close");
+            builder.AddContent(++seq, "Отмена");
             builder.CloseElement();
             builder.CloseElement();
             builder.CloseElement();

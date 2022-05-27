@@ -27,5 +27,12 @@ namespace RentOfWorkshopsTest
         {
             Assert.ThrowsException<InvalidOperationException>(() => Validation.PhoneValidation("7087047456"));
         }
+
+        [TestMethod]
+        public void GetSpaceTest()
+        {
+            Space space = SQLConnection.GetAllSpaces().Where(p => p.Id == 3).FirstOrDefault();
+            Assert.AreEqual(space, SQLConnection.GetSpace(3));
+        }
     }
 }

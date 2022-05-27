@@ -7,22 +7,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title unselectable">
-                    Sign up
+                    Зарегистрироваться
                 </h5>
             </div>
             <div class="modal-body">
-                <DataFieldComponent Title="First name" ValueCallback=OnFirstNameCB/>
-                <DataFieldComponent Title="Last name" ValueCallback=OnLastNameCB/>
-                <DateFieldComponent Title="Birth date" DateCallback=OnBirthDateCB/>
-                <PhoneFieldComponent Title="Phone number" ValueCallback=OnNumberCB/>
+                <DataFieldComponent Title="Имя" ValueCallback=OnFirstNameCB/>
+                <DataFieldComponent Title="Фамилия" ValueCallback=OnLastNameCB/>
+                <DateFieldComponent Title="Дата рождения" DateCallback=OnBirthDateCB/>
+                <PhoneFieldComponent Title="Номер" ValueCallback=OnNumberCB/>
                 <EmailFieldComponent Title="E-mail" ValueCallback=OnEmailCB/>
-                <DataFieldComponent Title="Login" ValueCallback=OnLoginCB/>
-                <DataFieldComponent InputType="password" Title="Password" ValueCallback=OnPWCB/>
-                <DataFieldComponent InputType="password" Title="Repeat Password" ValueCallback=OnRPWCB/>
+                <DataFieldComponent Title="Логин" ValueCallback=OnLoginCB/>
+                <DataFieldComponent InputType="password" Title="Пароль" ValueCallback=OnPWCB/>
+                <DataFieldComponent InputType="password" Title="Повторите пароль" ValueCallback=OnRPWCB/>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick="AddUser">Sign up</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="AddUser">Зарегистрироваться</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
             </div>
         </div>
     </div>
