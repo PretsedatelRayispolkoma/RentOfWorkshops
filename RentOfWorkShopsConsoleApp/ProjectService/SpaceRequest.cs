@@ -122,7 +122,14 @@ namespace RentOfWorkShopsConsoleApp.ProjectService
             Console.WriteLine("Description: ");
             string description = Console.ReadLine();
 
-            AddAddress(city, street, house);
+            try
+            {
+                AddAddress(city, street, house);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Can;t save city: {ex.Message}");
+            }
 
             Space space = new Space();
             space.TypeOfSpaceId = typeOfSpace;
@@ -132,7 +139,17 @@ namespace RentOfWorkShopsConsoleApp.ProjectService
             space.Description = description;
             space.StatusId = 1;
 
-            SQLConnection.AddSpace(space);
+            try
+            {
+                SQLConnection.AddSpace(space);
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Can't save space: {ex.Message}");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Excelent!");
             Console.WriteLine();
         }
     }

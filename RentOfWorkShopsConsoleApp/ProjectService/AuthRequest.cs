@@ -17,7 +17,7 @@ namespace RentOfWorkShopsConsoleApp.ProjectService
             {
                 Console.Write("Login: ");
                 string login = Console.ReadLine();
-                Console.WriteLine("Password: ");
+                Console.Write("Password: ");
                 string password = Console.ReadLine();
                 var user = SQLConnection.GetRole(login, password);
 
@@ -28,8 +28,13 @@ namespace RentOfWorkShopsConsoleApp.ProjectService
                 }
                 else
                 {
-                    _isntValid = false;
+                    if (user.RoleId == 1)
+                        _isntValid = false;
+                    else
+                        Console.WriteLine("You have low level of access");
                 }
+
+                Console.WriteLine();
             }
         }
     }
