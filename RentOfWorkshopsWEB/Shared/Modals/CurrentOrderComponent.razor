@@ -1,0 +1,58 @@
+﻿@using RentOfWorkshopsCore.DBConnection
+@using RentOfWorkshopsCore.DBContext
+
+@inherits ModalBaseComponent
+@inject UserContext UserContext
+
+<div class="@ModalClass" tabindex="-1" role="dialog" style="@ModalDisplay">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title unselectable">
+                    Текущий прокат
+                </h5>
+            </div>
+            <div class="modal-body">
+                @if (SQLConnection.GetRents(UserContext.User.ClientId).Where(p => p.EndDate > DateTime.Now).Any())
+                {
+                    var _rent = SQLConnection.GetRents(UserContext.User.ClientId).Where(p => p.EndDate > DateTime.Now).FirstOrDefault();
+                    if(DateTime.Now < _rent.StartDate && DateTime.Now < _rent.EndDate)
+                    {
+                        <p>В ожидании</p>
+                    }
+                    else if((DateTime.Now > _rent.StartDate && DateTime.Now < _rent.EndDate))
+                    {
+                        <p>В процессе</p>
+                    }
+                    <div class="rent">
+                        <div class="rent-clientname">
+                            <p>@_rent.Client.FirstName @_rent.Client.LastName</p>
+                        </div>
+                        <div class="rent-info">
+                            <p>@_rent.Space.TypeOfSpace.Name</p>
+                            <p>@_rent.Space.House.Street.City.Name, @_rent.Space.House.Street.Name, @_rent.Space.House.Number</p>
+                            <p>@_rent.StartDate - @_rent.EndDate</p>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <p>Вы еще не брали в аренду помещение</p>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"/>
+}
+
+@code {
+   
+}

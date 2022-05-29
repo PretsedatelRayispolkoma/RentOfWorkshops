@@ -24,6 +24,7 @@
         <div class="nav-buttons">
             @if(UserContext.User.RoleId == 1 || UserContext.User.RoleId == 2)
             {
+                <button class="nav-button" @onclick=CurrentOrderClicked>В аренде</button>
                 <button class="nav-button-regist" @onclick=SignOutBtnClicked>Выйти</button>
             }
             else
@@ -38,11 +39,12 @@
 
 <AuthComponent UserCallback=GetUser @ref="_authComponent"/>
 <RegistrationComponent @ref="_regComponent"/>
+<CurrentOrderComponent @ref=_currentOrder/>
 
 @code {
     private AuthComponent _authComponent;
     private RegistrationComponent _regComponent;
-
+    private CurrentOrderComponent _currentOrder;
 
     private void SignInBtnClicked()
     {
@@ -52,6 +54,11 @@
     private void SignUpBtnClicked()
     {
         _regComponent.Open();
+    }
+
+    private void CurrentOrderClicked()
+    {
+        _currentOrder.Open();
     }
 
     private void SignOutBtnClicked()

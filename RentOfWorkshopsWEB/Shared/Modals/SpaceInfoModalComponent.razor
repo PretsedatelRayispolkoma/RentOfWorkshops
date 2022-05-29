@@ -70,27 +70,34 @@
                         }
                     </ul>
                 </div>
-                <div class="datetime-picker">
-                    <label>Дата начала</label>
-                    <div class="date-time">
-                        <div>
-                            <input class="form-control form-control-sm" type="time" @bind=_timeOnly/>
-                        </div>
-                        <div>
-                            <input min=@_minDate class="form-control form-control-sm" type="date" @bind=_dateOnly/>
-                        </div>
-                    </div>                 
-                </div>
-                <div class="mb-3">
-                    <label>Количество часов</label>
-                    <select class="form-control form-control-sm" @onchange=OnChagne>
-                        <option value=0>---Выберите время---</option>
-                        <option value=1>1 час</option>
-                        <option value=3>3 часа</option>
-                        <option value=6>6 часов</option>
-                        <option value=12>12 часов</option>
-                    </select>
-                </div>
+                @if(UserContext.User.Client.Rent.Where(p => p.EndDate > DateTime.Now).Any())
+                {
+                    
+                }
+                else
+                {
+                    <div class="datetime-picker">
+                        <label>Дата начала</label>
+                        <div class="date-time">
+                            <div>
+                                <input class="form-control form-control-sm" type="time" @bind=_timeOnly/>
+                            </div>
+                            <div>
+                                <input min=@_minDate class="form-control form-control-sm" type="date" @bind=_dateOnly/>
+                            </div>
+                        </div>                 
+                    </div>
+                    <div class="mb-3">
+                        <label>Количество часов</label>
+                        <select class="form-control form-control-sm" @onchange=OnChagne>
+                            <option value=0>---Выберите время---</option>
+                            <option value=1>1 час</option>
+                            <option value=3>3 часа</option>
+                            <option value=6>6 часов</option>
+                            <option value=12>12 часов</option>
+                        </select>
+                    </div>
+                }
                 <div class="mb-3">
                     <label>
                         Итого
