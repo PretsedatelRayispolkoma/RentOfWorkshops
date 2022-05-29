@@ -70,6 +70,17 @@
                         }
                     </ul>
                 </div>
+                <div class="datetime-picker">
+                    <label>Дата начала</label>
+                    <div class="date-time">
+                        <div>
+                            <input class="form-control form-control-sm" type="time" @bind=_timeOnly/>
+                        </div>
+                        <div>
+                            <input min=@_minDate class="form-control form-control-sm" type="date" @bind=_dateOnly/>
+                        </div>
+                    </div>                 
+                </div>
                 <div class="mb-3">
                     <label>Количество часов</label>
                     <select class="form-control form-control-sm" @onchange=OnChagne>
@@ -88,7 +99,14 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick="CreateRent">Арендовать</button>
+                @if(UserContext.User.Client.Rent.Where(p => p.EndDate > DateTime.Now).Any())
+                {
+                    
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary" @onclick="CreateRent">Арендовать</button>
+                }
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Отмена</button>
             </div>
         </div>
@@ -107,6 +125,29 @@
     private int _time = 0;
     private decimal _amount;
 
+    private TimeOnly _timeOnly;
+    private DateOnly _dateOnly;
+    private DateTime _dateTime;
+
+    private string _minDate;
+
+    protected override Task OnInitializedAsync()
+    {
+        _timeOnly = TimeOnly.FromDateTime(DateTime.Now);
+        _dateOnly = DateOnly.FromDateTime(DateTime.Now);
+
+        string yyyy = _dateOnly.Year.ToString();
+        string mm = _dateOnly.Month.ToString();
+        string dd = _dateOnly.Day.ToString();
+        if (dd.Length < 2)
+            dd = "0" + dd;
+        if (mm.Length < 2)
+            mm = "0" + mm;
+
+        _minDate = $"{yyyy}-{mm}-{dd}";
+        return base.OnInitializedAsync();
+    }
+
     private void OnChagne(ChangeEventArgs e)
     {
         _time = Convert.ToInt32(e.Value);
@@ -115,6 +156,9 @@
 
     private void CreateRent()
     {
+        if (UserContext.User.Client.Rent.Where(p => p.EndDate > DateTime.Now).Any())
+            return;
+
         int rentHours;
         Rent rent = new Rent();
         switch(_time)
@@ -141,8 +185,14 @@
         rent.ClientId = UserContext.User.ClientId;
         rent.RentHours = rentHours;
         rent.SpaceId = CurrentSpace.Id;
-        DateTime datetime = DateTime.Now;
-        rent.EndDate = datetime.AddHours(rentHours);
+
+        _dateTime = _dateOnly.ToDateTime(_timeOnly);
+
+        if (_dateTime < DateTime.Now)
+            return;
+
+        rent.StartDate = _dateTime;
+        rent.EndDate = _dateTime.AddHours(rentHours);
         rent.TotalAmount = CurrentSpace.AmountPerHour * rentHours;
 
         SQLConnection.AttachSpace(CurrentSpace);

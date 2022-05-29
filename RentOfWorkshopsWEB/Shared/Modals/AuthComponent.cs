@@ -11,6 +11,8 @@ namespace RentOfWorkshopsWEB.Shared.Modals
         [Parameter]
         public EventCallback<User> UserCallback { get; set; }
 
+        UserContext UserContext = new UserContext();
+
         private string _login = "";
         private string _password = "";
         private string _logInputClass = "form-control";

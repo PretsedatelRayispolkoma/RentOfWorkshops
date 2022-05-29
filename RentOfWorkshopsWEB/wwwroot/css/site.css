@@ -365,3 +365,8 @@ input.order-by {
     grid-template-columns: 1fr 4fr 1fr;
     background-color: #e3cced;
 }
+
+.date-time{
+    display: flex;
+    flex-direction: row;
+}

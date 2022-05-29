@@ -20,6 +20,7 @@ namespace RentOfWorkshopsCore.DBContext
         public Nullable<System.DateTime> EndDate { get; set; }
         public int RentHours { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual Space Space { get; set; }
